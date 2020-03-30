@@ -4,6 +4,32 @@
 
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
+
+
+#app {
+  font-family: 'Nunito', sans-serif;
+}
+
 body, html {
     height: 100%;
+    font-family: 'Nunito', sans-serif;
+}
+
+.label-forms {
+    font-size: 20px;
+    line-height: 27px;
+    letter-spacing: 0.1em;
+    color: #4A5568;
+}
+
+.titre {
+font-family: 'Fredoka One';
+font-style: normal;
+font-weight: normal;
+font-size: 32px;
+line-height: 39px;
+letter-spacing: 0.1em;
+
 }
