@@ -45,7 +45,7 @@
 
 				<div class="flex flex-wrap">
 					<div class="w-5/6 sm:w-1/2 p-6">
-						<h3 class="text-3xl text-orange-500 font-bold leading-none mb-3 ">Partout en France !</h3>
+						<h3 class="text-3xl text-teal-600 font-bold leading-none mb-3 ">Partout en France !</h3>
 						<p class="text-gray-600 mb-8">Grâce à notre site, vous pourrez vérifiez les heures d'affluence de vos supermarchés favoris.   <br /><br />
 
 						</p>
@@ -64,7 +64,7 @@
 					</div>
 					<div class="w-full sm:w-1/2 p-6 mt-6">
 						<div class="align-middle">
-							<h3 class="text-3xl text-orange-500 font-bold leading-none mb-3">Optimisez votre temps !
+							<h3 class="text-3xl text-teal-600 font-bold leading-none mb-3">Optimisez votre temps !
 							</h3>
 							<p class="text-gray-600 mb-8">Une plage horaire vous sera proposez, à vous de choisir le crénaux qui vous convient . <br /><br />
 								</p>
