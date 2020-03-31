@@ -4,6 +4,10 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import ResetPass from "../views/ResetPass.vue";
+import ListShop from "../views/ListShop.vue";
+import Editshop from "../views/EditShop";
+
+
 
 Vue.use(VueRouter);
 
@@ -26,8 +30,18 @@ const routes = [{
     path: "/resetPassword",
     name: "ResetPass",
     component: ResetPass
+},
+{
+    path: "/reservation",
+    name: "ListShop",
+    component: ListShop
+},
+{
+    path: "/editShop",
+    name: "EditShop",
+    component: Editshop
 }
- ];
+];
 
 const router = new VueRouter({
     mode: "history",
