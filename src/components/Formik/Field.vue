@@ -11,7 +11,7 @@
     :name="name"
     :value="value"
     :checked="checked"
-    class="block appearance-none w-full bg-white border border-grey-light text-left hover:border-grey px-2 py-2 rounded shadow"
+    class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow"
     @change="handleInput($event)"
   />
 </template>

@@ -4,7 +4,7 @@
       <h1 class="block titre mb-3">
         SAFE<span class="text-teal-600">SHOP</span>
       </h1>
-      <h3 class="block label-forms mb-5">CONNEXION</h3>
+      <h3 class="block label-forms mb-5">Réinitialiser votre mot de passe</h3>
       <Formik>
         <FormGroup
           v-for="field in fields"
@@ -15,12 +15,9 @@
           :label="field.label"
         ></FormGroup>
       </Formik>
-            <router-link to="/inscription" class="inline-block align-baseline mt-4 font-bold text-sm text-blue hover:text-blue-darker"
+   <router-link to="/connexion" class="inline-block align-baseline mt-4 font-bold text-sm text-blue hover:text-blue-darker"
         href="#"
-      >Vous n'avez pas de compte ? Inscrivez vous.</router-link>
-      <router-link to="/resetPassword" class="inline-block align-baseline mt-4 font-bold text-sm text-blue hover:text-blue-darker"
-        href="#"
-      >Mot de passe oublié?</router-link>
+      >Vous avez un compte ? Connectez vous.</router-link>
     </div>
   </div>
 </template>
@@ -38,11 +35,6 @@ export default {
           label: "Email",
           name: "email",
           type: "email"
-        },
-        {
-          label: "Mot de passe",
-          name: "password",
-          type: "password"
         }
       ]
     };
