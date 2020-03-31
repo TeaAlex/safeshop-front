@@ -13,7 +13,7 @@
                     :type="type"
                     :name="field1"
                     :value="value"
-                    class="block appearance-none w-full bg-white border border-grey-light text-left hover:border-grey py-2 px-4 rounded shadow"
+                    class="block text-sm appearance-none w-full bg-white border border-grey-light text-left hover:border-grey py-2 px-1 rounded shadow"
                     @change="handleInput($event)"
             />
                 </div>
@@ -23,7 +23,7 @@
                     :type="type"
                     :name="field2"
                     :value="value"
-                    class="block appearance-none w-full bg-white border border-grey-light text-left hover:border-grey px-2 py-2 rounded shadow "
+                    class="block text-sm appearance-none w-full bg-white border border-grey-light text-left hover:border-grey px-1 py-2 rounded shadow "
                     @change="handleInput($event)"
             />
                 </div>
