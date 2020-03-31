@@ -1,9 +1,11 @@
 <template>
   <form action="" @submit="emitSubmit">
     <slot></slot>
-    <button @click.prevent="emitSubmit" class="bg-green-600 font-semibold px-3 py-2 rounded-sm text-blue-100">
+     <div class="flex flex-col w-56 m-auto my-4">
+    <button @click.prevent="emitSubmit" class="bg-gray-800 hover:bg-blue-dark text-xl w-full text-white font-bold py-2 px-4 rounded" type="button">
       Valider
     </button>
+    </div>
   </form>
 </template>
 <script>

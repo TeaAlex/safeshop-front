@@ -1,7 +1,7 @@
 <template>
 
   <div class="flex flex-col w-56 m-auto my-4">
-    <label class="font-semibold text-gray-700 block mb-2">{{ label }}</label>
+    <label class="font-semibold text-gray-700 text-left block mb-2">{{ label }}</label>
     <Field :key="name"
            :type="type"
            :name="name"
