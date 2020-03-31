@@ -5,6 +5,8 @@ import Login from "../views/Login.vue";
 import ListShop from "../views/ListShop.vue";
 import Register from "../views/Register.vue";
 import ResetPass from "../views/ResetPass.vue";
+import Editshop from "../views/EditShop";
+
 
 Vue.use(VueRouter);
 
@@ -34,7 +36,13 @@ const routes = [{
     name: "ResetPass",
     component: ResetPass
 }
- ];
+
+    {
+        path: "/editShop",
+        name: "EditShop",
+        component: Editshop
+    },
+];
 
 
 const router = new VueRouter({
