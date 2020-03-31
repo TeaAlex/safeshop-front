@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import ListShop from "../views/ListShop.vue";
+import Editshop from "../views/EditShop";
 
 
 
@@ -22,6 +23,11 @@ const routes = [{
         path: "/reservation",
         name: "ListShop",
         component: ListShop
+    },
+    {
+        path: "/editShop",
+        name: "EditShop",
+        component: Editshop
     },
 ];
 
