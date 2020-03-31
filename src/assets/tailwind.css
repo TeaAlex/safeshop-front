@@ -8,13 +8,17 @@
 @import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
 
 
-#app {
-  font-family: 'Nunito', sans-serif;
+* {
+    box-sizing: border-box;
+    font-family: 'Nunito', Serif;
 }
 
-body, html {
+html {
     height: 100%;
-    font-family: 'Nunito', sans-serif;
+}
+
+body {
+    min-height: 100vh;
 }
 
 .label-forms {
@@ -25,7 +29,7 @@ body, html {
 }
 
 .titre {
-font-family: 'Fredoka One';
+font-family: 'Fredoka One', serif;
 font-style: normal;
 font-weight: normal;
 font-size: 32px;
