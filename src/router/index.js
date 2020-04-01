@@ -47,22 +47,12 @@ const routes = [{
     path: "/editShop",
     name: "EditShop",
     component: Editshop
+},
+{
+    path: "/creneaux",
+    name: "ShopShow",
+    component: ShopShow
 }
-,{
-        path: "/reservation",
-        name: "ListShop",
-        component: ListShop
-    },
-    {
-        path: "/editShop",
-        name: "EditShop",
-        component: Editshop
-    },
-    {
-        path: "/creneaux",
-        name: "ShopShow",
-        component: ShopShow
-    }
 ];
 
 const router = new VueRouter({
