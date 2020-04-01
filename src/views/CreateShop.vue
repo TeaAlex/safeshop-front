@@ -13,6 +13,8 @@
           :name="field.name"
           :value="field.value"
           :label="field.label"
+          :required="field.required"
+          :disabled="field.disabled"
         ></FormGroup>
       </Formik>
     </div>
