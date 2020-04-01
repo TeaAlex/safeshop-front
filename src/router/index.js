@@ -49,7 +49,7 @@ const routes = [{
     component: Editshop
 },
 {
-    path: "/creneaux",
+    path: "/commerce/:id",
     name: "ShopShow",
     component: ShopShow
 }
