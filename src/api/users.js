@@ -1,4 +1,5 @@
 import axios from 'axios';
+import api from './api'
 
 export default {
     getShopData(siret) {
@@ -6,16 +7,15 @@ export default {
         return axios.get('https://api.insee.fr/entreprises/sirene/V3/siret/'+siret,{
             headers:  {Authorization: "Bearer 57f090d1-d9ba-35c4-9213-121047156782"}}).catch();
     },
-    login(user) {
+    login({email, password}) {
         // then return the promise of the axios instance
-        return axios.post('http://localhost:3333/login/',{
-                "uid": user.email,
-                "password": user.password
-            }).catch();
+        return api.post('/login', {
+            "uid": email,
+            password
+        })
     },
     register(user){
-        console.log(user);
-        return axios.post('http://localhost:3333/register/',{
+        return api.post('/register',{
             "firstname": user.prenom,
             "lastname": user.nom,
             "email":user.email,

@@ -5,7 +5,11 @@
         Réserver un créneau
       </h1>
       <div class="flex flex-col justify-center mt-8 mx-auto sm:w-128">
-        <ShopItem> </ShopItem>
+        <ShopItem
+          :shop="shop"
+          :schedules="schedules"
+        >
+        </ShopItem>
         <div class="mx-4 mt-4 sm:mx-0">
           <h1 class="text-left font-bold text-1xl mb-4 text-xl">
             Créneaux disponibles
@@ -33,10 +37,12 @@
 
           <div class="relative mt-4 ">
             <select
+              @change="selectedDate = $event.target.value"
               class="block appearance-none w-full bg-white px-4 py-4 pr-8 rounded leading-tight focus:outline-none focus:shadow-outline text-gray-800 font-semibold border"
             >
-              <option :value="day" v-for="(day, index) in days" :key="index"
-                >{{ day }}
+              <option value="" disabled selected>Sélectionner votre jour</option>
+              <option :value="date" v-for="(name, date) in days" :key="date"
+                >{{ name }}
               </option>
             </select>
             <div
@@ -55,6 +61,7 @@
           </div>
 
           <div
+            v-if="selectedDate"
             class="bg-white rounded p-4  mt-4 flex flex-col flex-wrap items-center border"
             style="max-height: 25rem; min-height: 20rem;"
           >
@@ -74,42 +81,40 @@
 
 <script>
 import ShopItem from "../components/ShopItem";
+import api from '../api/api';
+
 
 export default {
+  name: 'ShopShow',
   components: {
     ShopItem
   },
+  mounted() {
+    api.get(`/shop/${this.$route.params.id}/show`)
+    .then((response) => {
+      const {shop, schedules, slots, days} = response.data;
+      this.shop = shop;
+      this.schedules = schedules;
+      this.slots = slots;
+      this.days = days;
+    })
+  },
   data() {
     return {
-      isOpen: false,
-      hours: [
-        "9:30",
-        "10:00",
-        "10:30",
-        "11:00",
-        "11:30",
-        "12:00",
-        "12:30",
-        "13:00",
-        "13:30",
-        "14:00",
-        "14:30",
-        "15:00",
-        "15:30",
-        "16:00",
-        "16:30",
-        "17:00"
-      ],
-      days: [
-        "Lundi 30 Mars",
-        "Mardi 31 Mars",
-        "Mercredi 01 Avril",
-        "Jeudi 02 Avril",
-        "Vendredi 03 Avril",
-        "Samedi 04 Avril",
-        "Dimanche 05 Avril"
-      ]
+      days: {},
+      selectedDate: null,
+      shop: {},
+      schedules: [],
+      slots: {},
     };
+  },
+  computed: {
+    hours(){
+      if (this.selectedDate === null) {
+        return [];
+      }
+      return this.slots[this.selectedDate].map(slot => slot["formattedHour"])
+    }
   }
 };
 </script>
