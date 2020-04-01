@@ -26,7 +26,7 @@
 import Formik from "../components/Formik/Formik";
 import FormGroup from "../components/Formik/FormGroup";
 export default {
-  name: "Navbar",
+  name: "ResetPass",
   components: { Formik, FormGroup },
   data: function() {
     return {

@@ -4,7 +4,7 @@
       <h1 class="block titre mb-3">
         SAFE<span class="text-teal-600 fredoka">SHOP</span>
       </h1>
-      <h3 class="block label-forms mb-5">CONNEXION</h3>
+      <h3 class="block label-forms mb-5">Inscription commerçant</h3>
       <Formik>
         <FormGroup
           v-for="field in fields"
@@ -15,12 +15,6 @@
           :label="field.label"
         ></FormGroup>
       </Formik>
-            <router-link to="/inscription" class="inline-block align-baseline mt-4 font-bold text-sm text-blue hover:text-blue-darker"
-        href="#"
-      >Vous n'avez pas de compte ? Inscrivez vous.</router-link>
-      <router-link to="/resetPassword" class="inline-block align-baseline mt-4 font-bold text-sm text-blue hover:text-blue-darker"
-        href="#"
-      >Mot de passe oublié?</router-link>
     </div>
   </div>
 </template>
@@ -28,8 +22,9 @@
 <script>
 import Formik from "../components/Formik/Formik";
 import FormGroup from "../components/Formik/FormGroup";
+import { mapState } from 'vuex'
 export default {
-  name: "Login",
+  name: "CreateShop",
   components: { Formik, FormGroup },
   data: function() {
     return {
@@ -40,12 +35,46 @@ export default {
           type: "email"
         },
         {
-          label: "Mot de passe",
-          name: "password",
-          type: "password"
+          label: "Nom du commerce",
+          name: "shopName",
+          type: "text"
+        },
+        {
+          label: "Adresse",
+          name: "adress",
+          type: "text"
+        },
+        {
+          label: "Code postal",
+          name: "zipCode",
+          type: "text"
+        },
+        {
+          label: "Ville",
+          name: "city",
+          type: "text",
+        },
+        {
+          label: "Numéro",
+          name: "number",
+          type: "text"
+        },
+        {
+          label: "Siret",
+          name: "siret",
+          type: "text"
+        },
+        {
+          label: "Siren",
+          name: "siren",
+          type: "text",
+          value:this.shopData.siren
         }
       ]
     };
-  }
+  },
+  computed: mapState({
+  shopData: state => state.users.shopData
+  })
 };
 </script>

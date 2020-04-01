@@ -7,6 +7,7 @@ import Register from "../views/Register.vue";
 import ResetPass from "../views/ResetPass.vue";
 import Editshop from "../views/EditShop";
 import ShopShow from "../views/ShopShow";
+import CreateShop from "../views/CreateShop";
 
 
 
@@ -48,6 +49,7 @@ const routes = [{
         name: "ShopShow",
         component: ShopShow
     }
+
 ];
 
 
