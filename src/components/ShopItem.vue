@@ -5,11 +5,12 @@
         <div class="rounded bg-gray-400 h-12 w-12  sm:w-20 sm:h-20">
           <!--  IMAGE PLACEHOLDER      -->
         </div>
+        <router-link to="creneaux">
         <div class="ml-4 text-left">
           <p class="font-semibold text-teal-500 tracking-wide sm:text-2xl">Carrefour</p>
           <p class="text-sm sm:text-base text-gray-700">10 rue blablabla</p>
           <p class="text-xs sm:text-sm text-gray-600">Paris (75001)</p>
-        </div>
+        </div></router-link>
       </div>
       <div class="mt-4">
         <div class="flex">

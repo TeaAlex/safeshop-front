@@ -7,6 +7,7 @@ import ResetPass from "../views/ResetPass.vue";
 import ListShop from "../views/ListShop.vue";
 import Editshop from "../views/EditShop";
 import CreateShop from "../views/CreateShop";
+import ShopShow from "../views/ShopShow";
 
 
 
@@ -47,6 +48,21 @@ const routes = [{
     name: "EditShop",
     component: Editshop
 }
+,{
+        path: "/reservation",
+        name: "ListShop",
+        component: ListShop
+    },
+    {
+        path: "/editShop",
+        name: "EditShop",
+        component: Editshop
+    },
+    {
+        path: "/creneaux",
+        name: "ShopShow",
+        component: ShopShow
+    }
 ];
 
 const router = new VueRouter({
