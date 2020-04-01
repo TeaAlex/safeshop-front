@@ -6,6 +6,7 @@ import Register from "../views/Register.vue";
 import ResetPass from "../views/ResetPass.vue";
 import ListShop from "../views/ListShop.vue";
 import Editshop from "../views/EditShop";
+import CreateShop from "../views/CreateShop";
 
 
 
@@ -25,6 +26,11 @@ const routes = [{
     path: "/inscription",
     name: "Register",
     component: Register
+},
+{
+    path: "/inscription/shop",
+    name: "CreateShop",
+    component: CreateShop
 },
 {
     path: "/resetPassword",

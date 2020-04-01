@@ -52,7 +52,7 @@
 import Formik from "../components/Formik/Formik";
 import FormGroup from "../components/Formik/FormGroup";
 export default {
-  name: "Navbar",
+  name: "Register",
   components: { Formik, FormGroup },
   data: function() {
     return {
