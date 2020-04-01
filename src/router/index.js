@@ -14,42 +14,46 @@ import CreateShop from "../views/CreateShop";
 Vue.use(VueRouter);
 
 const routes = [{
-        path: "/",
-        name: "Home",
-        component: Home
-    },
-    {
-        path: "/connexion",
-        name: "Login",
-        component: Login
-    },
-    {
-        path: "/inscription",
-        name: "Register",
-        component: Register
-    },
-    {
-        path: "/resetPassword",
-        name: "ResetPass",
-        component: ResetPass
-    },
-    {
-        path: "/reservation",
-        name: "ListShop",
-        component: ListShop
-    },
-    {
-        path: "/editShop",
-        name: "EditShop",
-        component: Editshop
-    },
 
-    {
-        path: "/creneaux",
-        name: "ShopShow",
-        component: ShopShow
-    }
-
+    path: "/",
+    name: "Home",
+    component: Home
+},
+{
+    path: "/connexion",
+    name: "Login",
+    component: Login
+},
+{
+    path: "/inscription",
+    name: "Register",
+    component: Register
+},
+{
+    path: "/inscription/shop",
+    name: "CreateShop",
+    component: CreateShop
+},
+{
+    path: "/resetPassword",
+    name: "ResetPass",
+    component: ResetPass
+},
+{
+    path: "/reservation",
+    name: "ListShop",
+    component: ListShop
+},
+{
+    path: "/editShop",
+    name: "EditShop",
+    component: Editshop
+},
+{
+    path: "/creneaux",
+    name: "ShopShow",
+    component: ShopShow
+}
 ];
 
 
