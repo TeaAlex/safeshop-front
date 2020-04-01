@@ -28,7 +28,7 @@
           :label="field.label"
         ></FormGroup>
       </Formik>
-      <Formik v-else>
+      <Formik @onSubmit="createAccount" v-else>
         <FormGroup
           v-for="field in fields"
           :key="field.name"
@@ -120,7 +120,11 @@ export default {
     handleSubmit: function(e) {
       this.$store.dispatch('users/getShopData',{siret:e,vm:this})
       this.$router.push({name: "CreateShop"})
-    }
+    },
+    createAccount: function(e) {
+      this.$store.dispatch('users/register',{user:e,vm: this})
+      this.$router.push({name: "Login"})
+	}
   }
 };
 </script>
