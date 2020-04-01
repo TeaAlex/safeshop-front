@@ -11,6 +11,8 @@
     :name="name"
     :value="value"
     :checked="checked"
+    :required="required"
+    :disabled="disabled"
     class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow"
     @change="handleInput($event)"
   />
@@ -18,7 +20,7 @@
 <script>
 export default {
   name: "Field",
-  props: ["type", "name", "value", "checked"],
+  props: ["type", "name", "value", "checked", "required", "disabled"],
   inject: ["setValue"],
   methods: {
     handleInput: function(event) {
