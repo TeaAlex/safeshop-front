@@ -6,6 +6,8 @@
            :type="type"
            :name="name"
            :value="value"
+           :required="required"
+           :disabled="disabled"
            class="bg-grey"
     >
       <slot></slot>
@@ -22,7 +24,7 @@
     components: {
       Field
     },
-    props: ['type', 'label', 'name', 'value',]
+    props: ['type', 'label', 'name', 'value', 'required', 'disabled']
   }
 </script>
 
