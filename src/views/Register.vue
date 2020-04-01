@@ -1,24 +1,24 @@
 <template>
   <div class="flex justify-center mt-10">
-    <div class="bg-white shadow-md rounded px-8 w-1/4 pt-6 pb-8 mb-4 flex flex-col">
+    <div class="bg-white shadow-md rounded text-center px-8 w-1/4 pt-6 pb-8 mb-4 flex flex-col">
       <h1 class="block titre mb-3">
-        SAFE<span class="text-teal-600">SHOP</span>
+        SAFE<span class="text-teal-600 fredoka">SHOP</span>
       </h1>
       <h3 class="block label-forms mb-5">INSCRIPTION</h3>
       <div class="flex items-stretch w-full m-auto my-4">
         <button
           @click.prevent="choosePeople"
-          :class="style" 
+          :class="style"
           type="button"
         >Particulier</button>
         <button
           @click.prevent="chooseShop"
-          :class="style2" 
+          :class="style2"
           type="button"
         >Professionnel</button>
       </div>
         <div v-if="madeChoice">
-        <Formik v-if="isShop">
+        <Formik @onSubmit="handleSubmit" v-if="isShop">
         <FormGroup
           v-for="field in fields"
           :key="field.name"
@@ -28,7 +28,7 @@
           :label="field.label"
         ></FormGroup>
       </Formik>
-      <Formik v-else>
+      <Formik @onSubmit="createAccount" v-else>
         <FormGroup
           v-for="field in fields"
           :key="field.name"
@@ -52,7 +52,7 @@
 import Formik from "../components/Formik/Formik";
 import FormGroup from "../components/Formik/FormGroup";
 export default {
-  name: "Navbar",
+  name: "Register",
   components: { Formik, FormGroup },
   data: function() {
     return {
@@ -115,8 +115,16 @@ export default {
         this.isShop = false;
         this.style2 = 'bg-gray-800 buttonStyle text-xl w-1/2 text-white font-bold py-2 px-4 mr-3 rounded';
         this.style = 'bg-white buttonStyle text-xl w-1/2 text-bg-gray-800 font-bold py-2 px-4 mr-3 rounded border border-solid border-gray-800';
-        this.shopFields(); 
-    }
+        this.shopFields();
+    },
+    handleSubmit: function(e) {
+      this.$store.dispatch('users/getShopData',{siret:e,vm:this})
+      this.$router.push({name: "CreateShop"})
+    },
+    createAccount: function(e) {
+      this.$store.dispatch('users/register',{user:e,vm: this})
+      this.$router.push({name: "Login"})
+	}
   }
 };
 </script>
