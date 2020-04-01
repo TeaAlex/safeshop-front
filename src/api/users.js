@@ -6,22 +6,24 @@ export default {
         return axios.get('https://api.insee.fr/entreprises/sirene/V3/siret/'+siret,{
             headers:  {Authorization: "Bearer 57f090d1-d9ba-35c4-9213-121047156782"}}).catch();
     },
-    // login(user) {
-    //     // then return the promise of the axios instance
-    //     return axios.post('http://localhost:8011/login/',{
-    //             "email": user.email,
-    //             "pass": user.password
-    //         }).catch();
-    // },
-    // register(user){
-    //     return axios.post('http://localhost:8011/users/',{
-    //         "first_name": user.firstname,
-    //         "last_name": user.lastname,
-    //         "email":user.email,
-    //         "pass": user.password,
-    //         "birth_date": user.birthDate,
-    //     }).catch();
-    // },
+    login(user) {
+        // then return the promise of the axios instance
+        return axios.post('http://localhost:3333/login/',{
+                "uid": user.email,
+                "password": user.password
+            }).catch();
+    },
+    register(user){
+        console.log(user);
+        return axios.post('http://localhost:3333/register/',{
+            "firstname": user.prenom,
+            "lastname": user.nom,
+            "email":user.email,
+            "password": user.password,
+            "password_confirmation": user.resetpassword,
+            "role_id":1
+        }).catch();
+    },
     // getuser(uuid){
     //     return axios.get('http://localhost:8011/users/'+uuid,{
     //         headers:  {Authorization: "Bearer "+localStorage.getItem("userToken")}

@@ -5,7 +5,7 @@
         SAFE<span class="text-teal-600 fredoka">SHOP</span>
       </h1>
       <h3 class="block label-forms mb-5">CONNEXION</h3>
-      <Formik>
+      <Formik @onSubmit="login">
         <FormGroup
           v-for="field in fields"
           :key="field.name"
@@ -46,6 +46,12 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    login: function(e) {
+      this.$store.dispatch('users/login',{user:e,vm: this})
+      this.$router.push({name: "Home"})
+	}
   }
 };
 </script>
