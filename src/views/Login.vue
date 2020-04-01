@@ -1,11 +1,11 @@
 <template>
   <div class="flex justify-center mt-10">
-    <div class="bg-white shadow-md rounded px-8 w-1/4 pt-6 pb-8 mb-4 flex flex-col">
+    <div class="bg-white shadow-md rounded text-center px-8 w-1/4 pt-6 pb-8 mb-4 flex flex-col">
       <h1 class="block titre mb-3">
-        SAFE<span class="text-teal-600">SHOP</span>
+        SAFE<span class="text-teal-600 fredoka">SHOP</span>
       </h1>
       <h3 class="block label-forms mb-5">CONNEXION</h3>
-      <Formik>
+      <Formik @onSubmit="login">
         <FormGroup
           v-for="field in fields"
           :key="field.name"
@@ -29,7 +29,7 @@
 import Formik from "../components/Formik/Formik";
 import FormGroup from "../components/Formik/FormGroup";
 export default {
-  name: "Navbar",
+  name: "Login",
   components: { Formik, FormGroup },
   data: function() {
     return {
@@ -46,6 +46,12 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    login: function(e) {
+      this.$store.dispatch('users/login',{user:e,vm: this})
+      this.$router.push({name: "Home"})
+	}
   }
 };
 </script>
