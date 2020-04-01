@@ -17,7 +17,7 @@
 					<p class="leading-normal text-2xl mb-8">Grâce à cette plateforme, vous pourrez allez à votre supermarché le plus proche
                          sans faire la queue pendant de longues minutes ⏳ !</p>
 
-<router-link to="register" class="hover:font-bold bg-gray-800 text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg">Inscription</router-link>
+<router-link to="inscription" class="hover:font-bold bg-gray-800 text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg">Inscription</router-link>
 
 
 							<button 
