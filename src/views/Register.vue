@@ -1,8 +1,8 @@
 <template>
   <div class="flex justify-center mt-10">
-    <div class="bg-white shadow-md rounded px-8 w-1/4 pt-6 pb-8 mb-4 flex flex-col">
+    <div class="bg-white shadow-md rounded text-center px-8 w-1/4 pt-6 pb-8 mb-4 flex flex-col">
       <h1 class="block titre mb-3">
-        SAFE<span class="text-teal-600">SHOP</span>
+        SAFE<span class="text-teal-600 fredoka">SHOP</span>
       </h1>
       <h3 class="block label-forms mb-5">INSCRIPTION</h3>
       <div class="flex items-stretch w-full m-auto my-4">
@@ -18,7 +18,7 @@
         >Professionnel</button>
       </div>
         <div v-if="madeChoice">
-        <Formik v-if="isShop">
+        <Formik @onSubmit="handleSubmit" v-if="isShop">
         <FormGroup
           v-for="field in fields"
           :key="field.name"
@@ -116,7 +116,10 @@ export default {
         this.style2 = 'bg-gray-800 buttonStyle text-xl w-1/2 text-white font-bold py-2 px-4 mr-3 rounded';
         this.style = 'bg-white buttonStyle text-xl w-1/2 text-bg-gray-800 font-bold py-2 px-4 mr-3 rounded border border-solid border-gray-800';
         this.shopFields(); 
-    }
+    },
+	handleSubmit: function(e) {
+		this.$store.dispatch('users/getShopData',{siret:e,vm:this})
+	}
   }
 };
 </script>
