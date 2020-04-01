@@ -22,22 +22,26 @@
 <script>
 import Formik from "../components/Formik/Formik";
 import FormGroup from "../components/Formik/FormGroup";
-import { mapState } from 'vuex'
+import {mapState} from "vuex";
+
 export default {
   name: "CreateShop",
   components: { Formik, FormGroup },
+  mounted() {
+    this.setFieldsValue()
+  },
   data: function() {
     return {
       fields: [
         {
           label: "Email",
           name: "email",
-          type: "email"
+          type: "email",
         },
         {
           label: "Nom du commerce",
           name: "shopName",
-          type: "text"
+          type: "text",
         },
         {
           label: "Adresse",
@@ -68,13 +72,17 @@ export default {
           label: "Siren",
           name: "siren",
           type: "text",
-          value:this.shopData.siren
         }
       ]
     };
   },
   computed: mapState({
-  shopData: state => state.users.shopData
-  })
+    shopData: state => state.users.shopData
+  }),
+  methods: {
+    setFieldsValue(){
+      this.fields[0]["value"] = this.shopData.siren;
+    }
+  }
 };
 </script>

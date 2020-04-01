@@ -8,12 +8,12 @@
       <div class="flex items-stretch w-full m-auto my-4">
         <button
           @click.prevent="choosePeople"
-          :class="style" 
+          :class="style"
           type="button"
         >Particulier</button>
         <button
           @click.prevent="chooseShop"
-          :class="style2" 
+          :class="style2"
           type="button"
         >Professionnel</button>
       </div>
@@ -115,11 +115,12 @@ export default {
         this.isShop = false;
         this.style2 = 'bg-gray-800 buttonStyle text-xl w-1/2 text-white font-bold py-2 px-4 mr-3 rounded';
         this.style = 'bg-white buttonStyle text-xl w-1/2 text-bg-gray-800 font-bold py-2 px-4 mr-3 rounded border border-solid border-gray-800';
-        this.shopFields(); 
+        this.shopFields();
     },
-	handleSubmit: function(e) {
-		this.$store.dispatch('users/getShopData',{siret:e,vm:this})
-	}
+    handleSubmit: function(e) {
+      this.$store.dispatch('users/getShopData',{siret:e,vm:this})
+      this.$router.push({name: "CreateShop"})
+    }
   }
 };
 </script>
