@@ -37,41 +37,49 @@ export default {
           label: "Email",
           name: "email",
           type: "email",
+          value: ""
         },
         {
           label: "Nom du commerce",
           name: "shopName",
           type: "text",
+          value: ""
         },
         {
           label: "Adresse",
           name: "adress",
-          type: "text"
+          type: "text",
+          value: ""
         },
         {
           label: "Code postal",
           name: "zipCode",
-          type: "text"
+          type: "text",
+          value: ""
         },
         {
           label: "Ville",
           name: "city",
           type: "text",
+          value: ""
         },
         {
           label: "Numéro",
           name: "number",
-          type: "text"
+          type: "text",
+          value: ""
         },
         {
           label: "Siret",
           name: "siret",
-          type: "text"
+          type: "text",
+          value: ""
         },
         {
           label: "Siren",
           name: "siren",
           type: "text",
+          value: ""
         }
       ]
     };
@@ -81,7 +89,12 @@ export default {
   }),
   methods: {
     setFieldsValue(){
-      this.fields[0]["value"] = this.shopData.siren;
+      this.fields[1]["value"] = this.shopData.uniteLegale.denominationUniteLegale; // nom du commerce
+      this.fields[2]["value"] = this.shopData.adresseEtablissement.numeroVoieEtablissement + " " + this.shopData.adresseEtablissement.typeVoieEtablissement + " " + this.shopData.adresseEtablissement.libelleVoieEtablissement;
+      this.fields[3]["value"] = this.shopData.adresseEtablissement.codePostalEtablissement;
+      this.fields[4]["value"] = this.shopData.adresseEtablissement.libelleCommuneEtablissement;
+      this.fields[6]["value"] = this.shopData.siret;
+      this.fields[7]["value"] = this.shopData.siren;
     }
   }
 };

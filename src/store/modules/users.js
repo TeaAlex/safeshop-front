@@ -17,8 +17,7 @@ export default {
   },
   mutations: {
     setShopData(state, payload) {
-      state.shopData = payload.shopData.etablissement;
-      console.log(payload.shopData.etablissement);
+      state.shopData = payload.shopData.etablissement;  
     }
   }
 };
