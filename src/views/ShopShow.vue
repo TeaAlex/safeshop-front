@@ -60,17 +60,23 @@
             </div>
           </div>
 
+          <div class="flex items-center p-4 py-4 bg-red-200 text-red-700 rounded mt-4" v-if="errorMessage">
+            <svg class="fill-current h-6 w-6 text-red-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g data-name="Layer 2"><g data-name="alert-triangle"><rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"/><path d="M22.56 16.3L14.89 3.58a3.43 3.43 0 0 0-5.78 0L1.44 16.3a3 3 0 0 0-.05 3A3.37 3.37 0 0 0 4.33 21h15.34a3.37 3.37 0 0 0 2.94-1.66 3 3 0 0 0-.05-3.04zm-1.7 2.05a1.31 1.31 0 0 1-1.19.65H4.33a1.31 1.31 0 0 1-1.19-.65 1 1 0 0 1 0-1l7.68-12.73a1.48 1.48 0 0 1 2.36 0l7.67 12.72a1 1 0 0 1 .01 1.01z"/><circle cx="12" cy="16" r="1"/><path d="M12 8a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0V9a1 1 0 0 0-1-1z"/></g></g></svg>
+            <p class="ml-4">{{errorMessage}}</p>
+          </div>
+
           <div
             v-if="selectedDate"
             class="bg-white rounded p-4  mt-4 flex flex-col flex-wrap items-center border"
             style="max-height: 25rem; min-height: 20rem;"
           >
             <div
-              v-for="(hour, index) in hours"
-              :key="index"
+              @click="createBook(hour.id)"
+              v-for="hour in hours"
+              :key="hour.id"
               class="cursor-pointer px-2 py-1 w-16 bg-gray-200 text-gray-800 rounded text-center my-4"
             >
-              {{ hour }}
+              {{ hour.formattedHour }}
             </div>
           </div>
         </div>
@@ -106,6 +112,7 @@ export default {
       shop: {},
       schedules: [],
       slots: {},
+      errorMessage: null
     };
   },
   computed: {
@@ -113,7 +120,19 @@ export default {
       if (this.selectedDate === null) {
         return [];
       }
-      return this.slots[this.selectedDate].map(slot => slot["formattedHour"])
+      return this.slots[this.selectedDate].map(({formattedHour, id}) => ({id, formattedHour}) )
+    }
+  },
+  methods: {
+    createBook(id) {
+      api.post(`/booking/${id}/create`)
+      .then(() => console.log('ok'))
+      .catch((e) => {
+        this.errorMessage = e.response.data.error
+        setTimeout(() => {
+          this.errorMessage = null;
+        }, 2000)
+      })
     }
   }
 };
