@@ -9,7 +9,8 @@
     />
     <div class="w-full mx-auto lg:">
       <div class="mx-auto flex justify-center mb-4">
-        <ShopItem></ShopItem>
+        <ShopItem>
+        </ShopItem>
       </div>
     </div>
   </div>
