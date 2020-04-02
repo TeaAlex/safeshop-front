@@ -8,6 +8,7 @@ import ListShop from "../views/ListShop.vue";
 import Editshop from "../views/EditShop";
 import CreateShop from "../views/CreateShop";
 import ShopShow from "../views/ShopShow";
+import { NotFound } from "../views/NotFound";
 
 
 
@@ -31,7 +32,14 @@ const routes = [{
 {
     path: "/inscription/shop",
     name: "CreateShop",
-    component: CreateShop
+    component: CreateShop,
+    beforeEnter: (to, from, next) => {
+        if (from.name === "Register") {
+            next();
+        } else {
+            next('/inscription')
+        }
+    }
 },
 {
     path: "/resetPassword",
@@ -39,20 +47,29 @@ const routes = [{
     component: ResetPass
 },
 {
-    path: "/reservation",
+    path: "/commerce",
     name: "ListShop",
     component: ListShop
 },
 {
     path: "/editShop",
     name: "EditShop",
-    component: Editshop
+    component: Editshop,
+    beforeEnter: (to, from, next) => {
+        if (localStorage.getItem("userToken") == null) {
+            debugger;
+          next('/connexion')
+        } 
+        else next()
+      }
 },
 {
     path: "/commerce/:id",
     name: "ShopShow",
     component: ShopShow
-}
+},
+{ path: '/404', component: NotFound },  
+{ path: '*', redirect: '/404' }
 ];
 
 const router = new VueRouter({

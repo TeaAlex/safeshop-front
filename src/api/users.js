@@ -23,6 +23,23 @@ export default {
             "password_confirmation": user.resetpassword,
             "role_id":1
         }).catch();
+    },    
+    register_shop(user){
+        return api.post('/register_shop',{
+            "firstname": "Societé",
+            "lastname": user.shopName,
+            "label": user.shopName,
+            "email":user.email,
+            "password": user.password,
+            "password_confirmation": user.resetpassword,
+            "role_id":1,
+            "address":user.address,
+            "zip_code": user.zipCode,
+            "city": user.city,
+            "phone_number":user.number,
+            "siret": user.siret,
+	        "siren": user.siren
+        }).catch();
     },
     // getuser(uuid){
     //     return axios.get('http://localhost:8011/users/'+uuid,{
