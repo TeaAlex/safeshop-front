@@ -49,10 +49,10 @@ import {mapState} from "vuex";
         isOpen: false,
         urls: [
           { name: 'Deconnexion', link: '/deconnexion', requiredLogin: true, callback: this.disconnect },
-          { name: 'Mes reservations', link: '/planning', requiredLogin: true },
-          { name: 'Inscription', link: '/inscription', requiredLogin: false },
-          { name: 'Connexion', link: '/connexion', requiredLogin: false },
-          { name: 'Liste des commerces', link: '/commerce', alwaysShow: true },
+          { name: 'Mes reservations', link: '/planning', requiredLogin: true , callback: () => {}},
+          { name: 'Inscription', link: '/inscription', requiredLogin: false , callback: () => {}},
+          { name: 'Connexion', link: '/connexion', requiredLogin: false , callback: () => {}},
+          { name: 'Liste des commerces', link: '/commerce', alwaysShow: true , callback: () => {}},
         ]
       }
     },
