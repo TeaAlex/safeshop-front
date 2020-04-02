@@ -57,9 +57,8 @@ const routes = [{
     component: Editshop,
     beforeEnter: (to, from, next) => {
         if (localStorage.getItem("userToken") == null) {
-            debugger;
           next('/connexion')
-        } 
+        }
         else next()
       }
 },
@@ -68,7 +67,7 @@ const routes = [{
     name: "ShopShow",
     component: ShopShow
 },
-{ path: '/404', component: NotFound },  
+{ path: '/404', component: NotFound },
 { path: '*', redirect: '/404' }
 ];
 
