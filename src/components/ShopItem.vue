@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white sm:rounded p-4 w-full sm:p-6 sm:w-3/4 lg:w-2/3">
+  <div class="bg-white sm:rounded p-4 w-full sm:p-6 sm:w-128">
     <div class="flex-col">
       <div class="flex items-center">
         <div class="rounded bg-gray-400 h-12 w-12  sm:w-20 sm:h-20">
@@ -7,9 +7,9 @@
         </div>
         <router-link to="creneaux">
         <div class="ml-4 text-left">
-          <p class="font-semibold text-teal-500 tracking-wide sm:text-2xl">Carrefour</p>
-          <p class="text-sm sm:text-base text-gray-700">10 rue blablabla</p>
-          <p class="text-xs sm:text-sm text-gray-600">Paris (75001)</p>
+          <p class="font-semibold text-teal-500 tracking-wide sm:text-2xl">{{shop.label}}</p>
+          <p class="text-sm sm:text-base text-gray-700">{{shop.address}}</p>
+          <p class="text-xs sm:text-sm text-gray-600">{{shop.city}} ({{shop.zip_code}})</p>
         </div></router-link>
       </div>
       <div class="mt-4">
@@ -25,10 +25,10 @@
                 <span v-for="day in days" :key="day">{{ day }}</span>
               </div>
               <div class="text-gray-800 h-10 w-full flex justify-around items-center">
-                <span v-for="(beginHour, index) in beginHours" :key="index">{{ beginHour }}</span>
+                <span v-for="(openHour, index) in openHours" :key="index">{{ openHour }}</span>
               </div>
               <div class="text-gray-800 h-10 w-full flex justify-around items-center">
-                <span v-for="(endHour, index) in endHours" :key="index">{{ endHour }}</span>
+                <span v-for="(closeHour, index) in closeHours" :key="index">{{ closeHour }}</span>
               </div>
             </div>
           </div>
@@ -41,12 +41,19 @@
 <script>
 export default {
   name: "ShopItem",
+  props: ['shop', 'schedules'],
   data() {
     return {
-      days: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
-      beginHours: ["9h", "9h", "9h", "9h", "9h", "9h", "9h"],
-      endHours: ["17h", "17h", "17h", "17h", "17h", "17h", "17h"]
+      days: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"]
     };
+  },
+  computed: {
+    openHours(){
+      return this.schedules.map(schedule => schedule["open_hour"])
+    },
+    closeHours(){
+      return this.schedules.map(schedule => schedule["close_hour"])
+    }
   }
 };
 </script>
