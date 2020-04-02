@@ -17,15 +17,15 @@
         >
         </FormGroup2>
 
-        <div class="flex flex-col w-2/3 m-auto my-2 invisible sm:invisible md:visible lg:visible xl:visible">
-            <div class="flex flex-wrap -mx-3 mb-6 ">
-                <div class="w-full md:w-1/6 px-3 md:mb-0 ">
-                    <label class="font-semibold text-gray-700 block mb-2 align-middle"></label>
+        <div class="flex flex-col w-2/3 m-auto my-2 items-stretch invisible sm:invisible md:visible lg:visible xl:visible">
+            <div class="flex flex-wrap -mx-3 mb-6 justify-between ">
+                <div class="w-full md:w-1/4 px-3 md:mb-0 ">
+                    <label class="font-semibold text-gray-700 block mb-2 align-middle">Jour</label>
                 </div>
-                <div class="w-full md:w-1/6 px-3 md:mb-0 ">
+                <div class="w-full md:w-1/4 px-3 md:mb-0 ">
                     <label class="font-semibold text-gray-700 block mb-2 align-middle">Ouverture</label>
                 </div>
-                <div class="w-full md:w-1/6 px-3 md:mb-0 ">
+                <div class="w-full md:w-1/4 px-3 md:mb-0 ">
                     <label class="font-semibold text-gray-700 block mb-2 align-middle">Fermeture</label>
                 </div>
             </div>
@@ -36,6 +36,7 @@
               :name="date.name"
               :value="date.value"
               :label="date.label"
+              class="justify-center"
         >
         </Date>
 
@@ -62,6 +63,16 @@
                     {
                         label: 'Adresse',
                         name: 'address',
+                        type: 'text',
+                    },
+                    {
+                        label: 'Code',
+                        name: 'postal',
+                        type: 'number',
+                    },
+                    {
+                        label: 'Ville',
+                        name: 'city',
                         type: 'text',
                     },
                     {
