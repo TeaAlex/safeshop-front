@@ -5,25 +5,27 @@
             Editer mon enseigne
         </h1>
     </div>
-    <Formik class="">
+    <Formik >
+
         <FormGroup2 v-for="field in fields"
                    :key="field.name"
                    :type="field.type"
                    :name="field.name"
                    :value="field.value"
                    :label="field.label"
-                   class="w-2/3 flex"
+                   class="w-2/3"
         >
         </FormGroup2>
-        <div class="flex flex-col w-2/3 m-auto my-4 invisible sm:invisible md:visible lg:visible xl:visible">
+
+        <div class="flex flex-col w-2/3 m-auto my-2 invisible sm:invisible md:visible lg:visible xl:visible">
             <div class="flex flex-wrap -mx-3 mb-6 ">
-                <div class="w-full md:w-1/6 px-3 px:w-1/3 md:mb-0 ">
+                <div class="w-full md:w-1/6 px-3 md:mb-0 ">
                     <label class="font-semibold text-gray-700 block mb-2 align-middle"></label>
                 </div>
-                <div class="w-full md:w-1/6 px-3 px:w-1/3 md:mb-0 ">
+                <div class="w-full md:w-1/6 px-3 md:mb-0 ">
                     <label class="font-semibold text-gray-700 block mb-2 align-middle">Ouverture</label>
                 </div>
-                <div class="w-full md:w-1/6 px-3 px:w-1/3 md:mb-0 ">
+                <div class="w-full md:w-1/6 px-3 md:mb-0 ">
                     <label class="font-semibold text-gray-700 block mb-2 align-middle">Fermeture</label>
                 </div>
             </div>
@@ -36,6 +38,7 @@
               :label="date.label"
         >
         </Date>
+
     </Formik>
 
     </v-container>
