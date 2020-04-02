@@ -23,7 +23,7 @@
       <li v-on:click="setValue(result.properties.label)" v-for="result in results" :key="result.properties.id">
         <div class="w-full">
           <div class="flex cursor-pointer my-1 hover:bg-gray-300 list-none rounded">
-           
+
             <div class="w-full h-10 py-3 px-1">
               <p v-if="noResult" class="hover:text-blue-dark">Aucun résultat</p>
               <p v-else class="hover:text-blue-dark">{{ result.properties.label }}</p>
@@ -35,7 +35,9 @@
     </ul>
     <div class="w-full mx-auto lg:">
       <div class="mx-auto flex justify-center mb-4" v-for="shop in filteredList" :key="shop.id">
-        <ShopItem :shop="shop" :schedules="shop.schedules"></ShopItem>
+        <router-link :to="{ name: 'ShopShow', params: { id: shop.id } }">
+          <ShopItem :shop="shop" :schedules="shop.schedules"></ShopItem>
+        </router-link>
       </div>
     </div>
   </div>
@@ -71,7 +73,7 @@ export default {
         } else {
           return shops.label.toLowerCase().includes(this.search.toLowerCase()) || shops.city.toLowerCase().includes(this.search.toLowerCase());
         }
-       
+
       });
     }
   },
