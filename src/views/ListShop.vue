@@ -71,6 +71,7 @@ export default {
         } else {
           return shops.label.toLowerCase().includes(this.search.toLowerCase()) || shops.city.toLowerCase().includes(this.search.toLowerCase());
         }
+        //PR
        
       });
     }
