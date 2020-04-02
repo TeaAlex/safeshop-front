@@ -9,23 +9,40 @@
 
     <div class="hidden lg:flex lg:items-center lg:w-auto w-full" id="menu">
       <nav>
-        <ul class="lg:flex items-center justify-between text-base text-gray-700 pt-4 lg:pt-0">
-          <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-600" href="/reservation">Réservation</a></li>
-          <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-600" href="/plannig">Planning</a></li>
+        <ul v-if="!isLogged" class="lg:flex items-center justify-between text-base text-gray-700 pt-4 lg:pt-0">
+          <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-600" href="/commerce">Liste des commerces</a></li>
           <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-600" href="/connexion">Connexion</a></li>
           <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-600 lg:mb-0 mb-2" href="/inscription">Inscription</a></li>
         </ul>
-      </nav>
-      <a href="#" class="lg:ml-4 flex items-center justify-start lg:mb-0 mb-4 pointer-cursor">
+        <ul v-else class="lg:flex items-center justify-between text-base text-gray-700 pt-4 lg:pt-0">
+          <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-600" href="/commerce">Liste des commerces</a></li>
+          <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-600" href="/planning">Mes reservations</a></li>
+          <li><a class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-600" v-on:click="disconnect">Déconnexion</a></li>
+                  <a href="#" class="lg:ml-4 flex items-center justify-start lg:mb-0 mb-4 pointer-cursor">
         <img class="rounded-full w-10 h-10 border-2 border-transparent hover:border-teal-600" src="https://pbs.twimg.com/profile_images/1128143121475342337/e8tkhRaz_normal.jpg" alt="Andy Leverenz">
       </a>
+        </ul>
+
+      </nav>
+
 
     </div>
   </header>
 </template>
 
 <script>
+import {mapState} from "vuex";
   export default {
     name: 'Navbar',
+    methods:{
+      disconnect:function(){
+              localStorage.removeItem("userToken");
+              this.isLogged = false;
+              window.location.href = "/";
+        }
+    },
+    computed: mapState({
+      isLogged: state => state.users.isLogged
+  })
   }
 </script>
