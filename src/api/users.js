@@ -20,11 +20,11 @@ export default {
             "lastname": user.nom,
             "email":user.email,
             "password": user.password,
-            "password_confirmation": user.resetpassword,
-            "role_id":1
+            "password_confirmation": user.resetpassword
         }).catch();
     },    
     register_shop(user){
+        console.log(user);
         return api.post('/register_shop',{
             "firstname": "Societé",
             "lastname": user.shopName,
@@ -32,7 +32,6 @@ export default {
             "email":user.email,
             "password": user.password,
             "password_confirmation": user.resetpassword,
-            "role_id":1,
             "address":user.address,
             "zip_code": user.zipCode,
             "city": user.city,
