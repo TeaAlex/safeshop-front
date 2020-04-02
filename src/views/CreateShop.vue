@@ -5,7 +5,7 @@
         SAFE<span class="text-teal-600 fredoka">SHOP</span>
       </h1>
       <h3 class="block label-forms mb-5">Inscription commerçant</h3>
-      <Formik>
+      <Formik @onSubmit="createShop">
         <FormGroup
           v-for="field in fields"
           :key="field.name"
@@ -82,7 +82,17 @@ export default {
           name: "siren",
           type: "text",
           value: ""
-        }
+        },
+          {
+            label: "Mot de passe",
+            name: "password",
+            type: "password"
+          },
+          {
+            label: "Confirmer le mot de passe",
+            name: "resetpassword",
+            type: "password"
+          }
       ]
     };
   },
@@ -91,13 +101,19 @@ export default {
   }),
   methods: {
     setFieldsValue(){
+      setTimeout(() => {
       this.fields[1]["value"] = this.shopData.uniteLegale.denominationUniteLegale; // nom du commerce
       this.fields[2]["value"] = this.shopData.adresseEtablissement.numeroVoieEtablissement + " " + this.shopData.adresseEtablissement.typeVoieEtablissement + " " + this.shopData.adresseEtablissement.libelleVoieEtablissement;
       this.fields[3]["value"] = this.shopData.adresseEtablissement.codePostalEtablissement;
       this.fields[4]["value"] = this.shopData.adresseEtablissement.libelleCommuneEtablissement;
       this.fields[6]["value"] = this.shopData.siret;
       this.fields[7]["value"] = this.shopData.siren;
-    }
+      },500)
+    },
+    createShop: function(e) {
+      this.$store.dispatch('users/register_shop',{user:e,vm: this})
+      this.$router.push({name: "Login"})
+	  }
   }
 };
 </script>
