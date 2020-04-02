@@ -29,7 +29,7 @@ import {mapState} from "vuex";
 export default {
   name: "CreateShop",
   components: { Formik, FormGroup },
-  mounted() {
+  beforeMount() {
     this.setFieldsValue()
   },
   data: function() {
@@ -100,18 +100,16 @@ export default {
     shopData: state => state.users.shopData
   }),
   methods: {
-    setFieldsValue(){
-      setTimeout(() => {
+    setFieldsValue() {
       this.fields[1]["value"] = this.shopData.uniteLegale.denominationUniteLegale; // nom du commerce
       this.fields[2]["value"] = this.shopData.adresseEtablissement.numeroVoieEtablissement + " " + this.shopData.adresseEtablissement.typeVoieEtablissement + " " + this.shopData.adresseEtablissement.libelleVoieEtablissement;
       this.fields[3]["value"] = this.shopData.adresseEtablissement.codePostalEtablissement;
       this.fields[4]["value"] = this.shopData.adresseEtablissement.libelleCommuneEtablissement;
       this.fields[6]["value"] = this.shopData.siret;
       this.fields[7]["value"] = this.shopData.siren;
-      },500)
     },
-    createShop: function(e) {
-      this.$store.dispatch('users/register_shop',{user:e,vm: this})
+    createShop: function(values) {
+      this.$store.dispatch('users/register_shop',{user: values});
       this.$router.push({name: "Login"})
 	  }
   }

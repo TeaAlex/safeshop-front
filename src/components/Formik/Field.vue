@@ -22,6 +22,14 @@ export default {
   name: "Field",
   props: ["type", "name", "value", "checked", "required", "disabled"],
   inject: ["setValue"],
+  mounted() {
+    this.setValue({
+      type: this.type,
+      key: this.name,
+      value: this.value,
+      isChecked: this.checked
+    });
+  },
   methods: {
     handleInput: function(event) {
       this.setValue({
