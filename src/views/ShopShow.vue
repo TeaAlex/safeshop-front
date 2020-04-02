@@ -82,6 +82,7 @@
                    style="right: -10px; top: -10px">
                 {{ hour.number_max }}
               </div>
+              {{hour.id}}
               {{ hour.formattedHour }}
             </div>
           </div>
@@ -127,7 +128,7 @@ export default {
         return [];
       }
       return this.slots[this.selectedDate].map(({formattedHour, id, bookings, number_max, day}) => {
-        const max = this.schedules[day + 1].number_max;
+        const max = this.schedules[day - 1].number_max;
         let status = "";
         const low = max / 3;
         const good = max / 2;
