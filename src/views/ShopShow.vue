@@ -82,7 +82,6 @@
                    style="right: -10px; top: -10px">
                 {{ hour.number_max }}
               </div>
-              {{hour.id}}
               {{ hour.formattedHour }}
             </div>
           </div>
