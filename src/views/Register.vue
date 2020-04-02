@@ -117,9 +117,9 @@ export default {
         this.style = 'bg-white buttonStyle text-xl w-1/2 text-bg-gray-800 font-bold py-2 px-4 mr-3 rounded border border-solid border-gray-800';
         this.shopFields();
     },
-    handleSubmit: function(e) {
-      this.$store.dispatch('users/getShopData',{siret:e,vm:this})
-      this.$router.push({name: "CreateShop"})
+    handleSubmit: async function(e) {
+      await this.$store.dispatch('users/getShopData',{siret:e,vm:this});
+      await this.$router.push({name: "CreateShop"})
     },
     createAccount: function(e) {
       this.$store.dispatch('users/register',{user:e,vm: this})
