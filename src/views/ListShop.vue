@@ -8,8 +8,8 @@
       placeholder="Rechercher votre commerce..."
     />
     <div class="w-full mx-auto lg:">
-      <div class="mx-auto flex justify-center mb-4">
-        <ShopItem>
+      <div class="mx-auto flex justify-center mb-4" v-for="shop in shops" :key="shop.id">
+        <ShopItem :shop="shop" :schedules="shop.schedules">
         </ShopItem>
       </div>
     </div>
@@ -18,10 +18,21 @@
 
 <script>
 import ShopItem from "../components/ShopItem";
+import api from '../api/api'
 
 export default {
+  name: 'ListShop',
   components: {
     ShopItem
+  },
+  mounted() {
+    api.get('/shop/all')
+      .then(response => this.shops = response.data.shops)
+  },
+  data(){
+    return {
+      shops: []
+    }
   }
 };
 </script>
