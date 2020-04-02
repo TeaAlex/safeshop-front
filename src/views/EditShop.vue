@@ -85,8 +85,6 @@
                         name: 'number_max',
                         type: 'number',
                     },
-
-
                 ],
                 dates: [
                     {
