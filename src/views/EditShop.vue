@@ -16,7 +16,6 @@
                    class="w-2/3"
         >
         </FormGroup2>
-
         <div class="flex flex-col w-2/3 m-auto my-2 items-stretch invisible sm:invisible md:visible lg:visible xl:visible">
             <div class="flex flex-wrap -mx-3 mb-6 justify-between ">
                 <div class="w-full md:w-1/4 px-3 md:mb-0 ">
@@ -30,6 +29,7 @@
                 </div>
             </div>
         </div>
+
         <Date v-for="date in dates"
               :key="date.name"
               :type="date.type"
@@ -85,8 +85,6 @@
                         name: 'number_max',
                         type: 'number',
                     },
-
-
                 ],
                 dates: [
                     {
