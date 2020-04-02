@@ -41,3 +41,7 @@ letter-spacing: 0.1em;
 .fredoka {
     font-family: 'Fredoka One', serif;  
 }
+
+.m--40 {
+    margin-top:-40px;
+}
