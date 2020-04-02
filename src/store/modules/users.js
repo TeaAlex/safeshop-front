@@ -11,10 +11,13 @@ export default {
 
   actions: {
     getShopData({ commit }, payload) {
-      usersApi.getShopData(payload.siret.siret).then(response => {
-        commit("setShopData", {
-          shopData: response.data
-        });
+      return new Promise((resolve) => {
+        usersApi.getShopData(payload.siret.siret).then(response => {
+          commit("setShopData", {
+            shopData: response.data
+          });
+          resolve()
+        })
       });
     },
     register({commit},payload){
@@ -43,7 +46,6 @@ export default {
         commit('isSuccessfullyLogged' , {
           token: response.data.token
         })
-      
       },(error) => {
         commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
       });
@@ -51,11 +53,11 @@ export default {
   },
   mutations: {
     setShopData(state, payload) {
-      state.shopData = payload.shopData.etablissement;  
+      state.shopData = payload.shopData.etablissement;
       console.log(state.shopData);
     },
     registered(state, payload) {
-      state.registed = payload;  
+      state.registed = payload;
     },
     hasFailed(state, payload){
       state.isLogged = false;

@@ -74,8 +74,14 @@
               @click="createBook(hour.id)"
               v-for="hour in hours"
               :key="hour.id"
-              class="cursor-pointer px-2 py-1 w-16 bg-gray-200 text-gray-800 rounded text-center my-4"
+              class="cursor-pointer px-2 py-1 w-16 bg-gray-200 text-gray-800 rounded text-center my-4 relative"
+              :class="{ 'bg-teal-300 text-teal-800': hour.hasBooked }"
             >
+              <div class="flex h-6 items-center justify-center rounded-full w-6 text-xs absolute"
+                   :class="{ 'bg-green-200 text-green-800': hour.status === 'good', 'bg-orange-200 text-orange-800': hour.status === 'average', 'bg-red-200 text-red-800': hour.status === 'low' }"
+                   style="right: -10px; top: -10px">
+                {{ hour.number_max }}
+              </div>
               {{ hour.formattedHour }}
             </div>
           </div>
@@ -120,7 +126,26 @@ export default {
       if (this.selectedDate === null) {
         return [];
       }
-      return this.slots[this.selectedDate].map(({formattedHour, id}) => ({id, formattedHour}) )
+      return this.slots[this.selectedDate].map(({formattedHour, id, bookings, number_max, day}) => {
+        const max = this.schedules[day + 1].number_max;
+        let status = "";
+        const low = max / 3;
+        const good = max / 2;
+        if (number_max >= good) {
+          status = "good"
+        } else if (number_max < good && number_max > low) {
+          status = "average"
+        } else {
+          status = "low"
+        }
+        return {
+          id,
+          formattedHour,
+          hasBooked: bookings.length > 0,
+          number_max,
+          status
+        }
+      })
     }
   },
   methods: {
