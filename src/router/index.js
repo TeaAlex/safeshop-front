@@ -9,6 +9,8 @@ import Editshop from "../views/EditShop";
 import ShopShow from "../views/ShopShow";
 import CreateShop from "../views/CreateShop";
 import { NotFound } from "../views/NotFound";
+import UserProfile from "../views/UserProfile";
+import UserAccess from "../views/UserAccess";
 
 
 
@@ -52,6 +54,16 @@ const routes = [{
     name: "ListShop",
     component: ListShop
 },
+    {
+        path: "/edituser",
+        name: "UserProfile",
+        component: UserProfile
+    },
+    {
+        path: "/userview",
+        name: "UserAccess",
+        component: UserAccess
+    },
 {
     path: "/editShop",
     name: "EditShop",
