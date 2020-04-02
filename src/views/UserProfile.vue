@@ -20,7 +20,6 @@
 
     </v-container>
 </template>
-
 <script>
     import Formik from "../components/Formik/Formik"
     import FormGroup2 from "../components/Formik/FormGroup2"
