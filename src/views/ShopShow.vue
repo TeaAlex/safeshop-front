@@ -68,13 +68,13 @@
           <div
             v-if="selectedDate"
             class="bg-white rounded p-4  mt-4 flex flex-col flex-wrap items-center border"
-            style="max-height: 25rem; min-height: 20rem;"
+            :style="{ 'height': containerHeight + 'rem' }"
           >
             <div
               @click="createBook($event, hour.id)"
               v-for="hour in hours"
               :key="hour.id"
-              class="cursor-pointer px-2 py-1 w-16 bg-gray-200 text-gray-800 rounded text-center my-4 relative"
+              class="cursor-pointer px-2 py-1 w-16 bg-gray-200 text-gray-800 rounded text-center my-4 relative m-3"
               :class="{ 'bg-teal-300 text-teal-800': hour.hasBooked }"
             >
               <div class="flex h-6 items-center justify-center rounded-full w-6 text-xs absolute counter"
@@ -82,7 +82,6 @@
                    style="right: -10px; top: -10px">
                 {{ hour.number_max }}
               </div>
-              {{hour.id}}
               {{ hour.formattedHour }}
             </div>
           </div>
@@ -114,6 +113,7 @@ export default {
   },
   data() {
     return {
+      containerHeight: 0,
       days: {},
       selectedDate: null,
       shop: {},
@@ -127,6 +127,10 @@ export default {
       if (this.selectedDate === null) {
         return [];
       }
+
+      const count = this.slots[this.selectedDate].length;
+      let toto = count % 2;
+      this.containerHeight = (count * 10) / 8;
       return this.slots[this.selectedDate].map(({formattedHour, id, bookings, number_max, day}) => {
         const max = this.schedules[day - 1].number_max;
         let status = "";
