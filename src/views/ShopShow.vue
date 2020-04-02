@@ -104,9 +104,9 @@ export default {
   mounted() {
     api.get(`/shop/${this.$route.params.id}/show`)
     .then((response) => {
-      const {shop, schedules, slots, days} = response.data;
+      const {shop, slots, days} = response.data;
       this.shop = shop;
-      this.schedules = schedules;
+      this.schedules = shop.schedules;
       this.slots = slots;
       this.days = days;
     })
