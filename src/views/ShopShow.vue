@@ -71,13 +71,13 @@
             style="max-height: 25rem; min-height: 20rem;"
           >
             <div
-              @click="createBook(hour.id)"
+              @click="createBook($event, hour.id)"
               v-for="hour in hours"
               :key="hour.id"
               class="cursor-pointer px-2 py-1 w-16 bg-gray-200 text-gray-800 rounded text-center my-4 relative"
               :class="{ 'bg-teal-300 text-teal-800': hour.hasBooked }"
             >
-              <div class="flex h-6 items-center justify-center rounded-full w-6 text-xs absolute"
+              <div class="flex h-6 items-center justify-center rounded-full w-6 text-xs absolute counter"
                    :class="{ 'bg-green-200 text-green-800': hour.status === 'good', 'bg-orange-200 text-orange-800': hour.status === 'average', 'bg-red-200 text-red-800': hour.status === 'low' }"
                    style="right: -10px; top: -10px">
                 {{ hour.number_max }}
@@ -150,11 +150,17 @@ export default {
     }
   },
   methods: {
-    createBook(id) {
+    createBook(event, id) {
       api.post(`/booking/${id}/create`)
-      .then(() => console.log('ok'))
+      .then(() => {
+        const target = event.target;
+        target.classList.remove('bg-gray-200', 'text-gray-800');
+        target.classList.add('bg-teal-300', 'text-gray-800');
+        const counter = target.querySelector('.counter');
+        counter.innerText = parseInt(counter.innerText) - 1;
+      })
       .catch((e) => {
-        this.errorMessage = e.response.data.error
+        this.errorMessage = e.response.data.error;
         setTimeout(() => {
           this.errorMessage = null;
         }, 2000)
