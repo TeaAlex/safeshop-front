@@ -1,41 +1,57 @@
 <template>
-    <v-component>
+    <v-container>
     <div class="flex flex-col w-56 m-auto my-4">
-        <h1 class="label-forms mb-5 mt-10 ">
+        <h1 class="label-forms mb-5 mt-10 mb:text-4xl ">
             Editer mon enseigne
         </h1>
     </div>
-    <Formik>
-        <FormGroup v-for="field in fields"
+    <Formik >
+
+        <FormGroup2 v-for="field in fields"
                    :key="field.name"
                    :type="field.type"
                    :name="field.name"
                    :value="field.value"
                    :label="field.label"
+                   class="w-2/3"
         >
-        </FormGroup>
+        </FormGroup2>
+        <div class="flex flex-col w-2/3 m-auto my-2 items-stretch invisible sm:invisible md:visible lg:visible xl:visible">
+            <div class="flex flex-wrap -mx-3 mb-6 justify-between ">
+                <div class="w-full md:w-1/4 px-3 md:mb-0 ">
+                    <label class="font-semibold text-gray-700 block mb-2 align-middle">Jour</label>
+                </div>
+                <div class="w-full md:w-1/4 px-3 md:mb-0 ">
+                    <label class="font-semibold text-gray-700 block mb-2 align-middle">Ouverture</label>
+                </div>
+                <div class="w-full md:w-1/4 px-3 md:mb-0 ">
+                    <label class="font-semibold text-gray-700 block mb-2 align-middle">Fermeture</label>
+                </div>
+            </div>
+        </div>
 
         <Date v-for="date in dates"
-                   :key="date.name"
-                   :type="date.type"
-                   :name="date.name"
-                   :value="date.value"
-                   :label="date.label"
+              :key="date.name"
+              :type="date.type"
+              :name="date.name"
+              :value="date.value"
+              :label="date.label"
+              class="justify-center"
         >
         </Date>
 
     </Formik>
-    </v-component>
 
+    </v-container>
 </template>
 
 <script>
     import Formik from "../components/Formik/Formik";
-    import FormGroup from "../components/Formik/FormGroup";
+    import FormGroup2 from "../components/Formik/FormGroup2";
     import Date from "../components/Date";
     export default {
         name: "Editshop",
-        components: {Formik, FormGroup, Date},
+        components: {Formik, FormGroup2, Date},
         data: function () {
             return {
                 fields: [
@@ -50,6 +66,16 @@
                         type: 'text',
                     },
                     {
+                        label: 'Code',
+                        name: 'postal',
+                        type: 'number',
+                    },
+                    {
+                        label: 'Ville',
+                        name: 'city',
+                        type: 'text',
+                    },
+                    {
                         label: 'Intervalle des créneaux (minutes)',
                         name: 'interval',
                         type: 'number',
@@ -59,8 +85,6 @@
                         name: 'number_max',
                         type: 'number',
                     },
-
-
                 ],
                 dates: [
                     {
@@ -106,7 +130,9 @@
                         type: 'time',
                     },
 
-                ]
+                ],
+
+
             }
         }
     }
