@@ -49,7 +49,7 @@ export default {
         },
         {
           label: "Adresse",
-          name: "adress",
+          name: "address",
           type: "text",
           value: ""
         },
