@@ -1,57 +1,89 @@
 <template>
     <v-container>
-        <div class="flex flex-col w-56 m-auto my-4">
-            <h1 class="label-forms mb-5 mt-10 mb:text-4xl text-center ">
-                Mon profil
-            </h1>
+        <div class="flex flex-col w-2/3 m-auto my-4">
+            <div class="flex w-full mx-auto items-center justify-between">
+                <h1 class="label-forms mb-5 mt-10 mb:text-4xl text-center ">
+                    Editer mon profil
+                </h1>
+
+                <a href="/userview"  class="bg-gray-800 hover:bg-blue-dark text-xl w-1/8 text-white font-bold py-2 px-4 rounded flex-col" type="button">
+                    Retour</a>
+            </div>
         </div>
-        <Formik >
-            <FormGroup2 v-for="field in fields"
-                        :key="field.name"
-                        :type="field.type"
-                        :name="field.name"
-                        :value="field.value"
-                        :label="field.label"
-                        class="w-2/3"
+        <Formik @onSubmit="editUser">
+            <FormGroup v-for="field in fields"
+                       :key="field.name"
+                       :type="field.type"
+                       :name="field.name"
+                       :value="field.value"
+                       :label="field.label"
+                       :required="field.required"
+                       class="w-2/3"
             >
-            </FormGroup2>
+            </FormGroup>
 
         </Formik>
+
 
     </v-container>
 </template>
 
 <script>
-    import Formik from "../components/Formik/Formik"
-    import FormGroup2 from "../components/Formik/FormGroup2"
-
+    import Formik from "../components/Formik/Formik";
+    import FormGroup from "../components/Formik/FormGroup";
+    import api from "../api/api";
     export default {
         name: "UserProfile",
-        components: {Formik, FormGroup2},
+        components: {Formik, FormGroup},
+        beforeMount(){
+            api.get('/user/current-user')
+                .then(response => { this.user = response.data.user;
+                    this.setFieldsValue(this.user)});
+            ;
+        },
         data: function () {
             return {
+                user:{},
                 fields: [
                     {
-                       label:"Nom",
-                       name:"lastname",
-                       type:"text"
+                        label:"Nom",
+                        name:"lastname",
+                        type:"text",
+                        value: ""
                     },
                     {
                         label:"Prenom",
                         name:"firstname",
-                        type:"text"
+                        type:"text",
+                        value: ""
                     },
                     {
                         label:"Email",
                         name:"email",
-                        type:"email"
+                        type:"email",
+                        value: ""
                     },
-                ]
+                ],
+            }
+        },
+        methods: {
+            setFieldsValue(user) {
+                this.fields[0]["value"] = user.lastname; // nom du user
+                this.fields[1]["value"] = user.firstname;
+                this.fields[2]["value"] = user.email;
+            },
+            editUser(body) {
+                console.log(body),
+                    api.put('/user/edit', body)
+                        .then(response => {
+                            if(response.status == "Success"){
+                                console.log(true);
+                            }
+                        })
             }
         }
     }
 </script>
 
 <style scoped>
-
 </style>
