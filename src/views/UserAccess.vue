@@ -94,7 +94,7 @@
                 user: {},
                 shop:{}
             }
-        }
+        },
     }
 
 </script>

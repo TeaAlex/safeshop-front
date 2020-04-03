@@ -65,12 +65,26 @@ const routes = [{
     {
         path: "/edituser",
         name: "UserProfile",
-        component: UserProfile
+        component: UserProfile,
+        beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("userToken") == null) {
+                debugger;
+                next('/connexion')
+            }
+            else next()
+        }
     },
     {
         path: "/userview",
         name: "UserAccess",
-        component: UserAccess
+        component: UserAccess,
+        beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("userToken") == null) {
+                debugger;
+                next('/connexion')
+            }
+            else next()
+        }
     },
 {
     path: "/editShop",

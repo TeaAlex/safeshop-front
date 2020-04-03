@@ -49,9 +49,25 @@
     import Formik from "../components/Formik/Formik";
     import FormGroup2 from "../components/Formik/FormGroup2";
     import Date from "../components/Date";
+    import api from "../api/api";
+
     export default {
         name: "Editshop",
         components: {Formik, FormGroup2, Date},
+        beforeMount(){
+            api.get('/user/current-user')
+                .then(response => {
+                    this.user = response.data.user;
+                    if(response.data.user.role_id == 2){
+                        api.get('/shop/show')
+                            .then(response => {
+                                this.shop = response.data.shop;
+                                api.get(`/schedule/shop/${this.shop.shop_id}/show`)
+                                    .then(response => this.schedules = response.data.schedules);
+
+                            })
+                    }});
+        },
         data: function () {
             return {
                 fields: [
@@ -130,6 +146,8 @@
                         type: 'time',
                     },
 
+                ],
+                schedules:[
                 ],
 
 
