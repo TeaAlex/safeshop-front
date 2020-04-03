@@ -82,6 +82,9 @@ export default {
       localStorage.userToken = state.token.token;
     },
     setIsLogged(state, bool) {
+      if (bool === false){
+        state.token = {};
+      }
       state.isLogged = bool;
     }
   }

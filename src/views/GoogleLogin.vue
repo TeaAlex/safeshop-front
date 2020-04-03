@@ -4,15 +4,16 @@
 
 <script>
 export default {
-  name: "Login",
+  name: "GoogleLogin",
   components: { },
   data: function() {
     return {
     };
   },
   created(){
-      localStorage.setItem("userToken",this.$route.params.id)
-      window.location.href = "http://localhost:8081";
+    localStorage.setItem("userToken", this.$route.params.id);
+    this.$store.commit('users/setIsLogged', true);
+    this.$router.push('/')
   }
 };
 </script>
