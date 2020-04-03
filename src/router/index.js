@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
+import GoogleLogin from "../views/GoogleLogin.vue";
 import Register from "../views/Register.vue";
 import ResetPass from "../views/ResetPass.vue";
 import ListShop from "../views/ListShop.vue";
@@ -23,6 +24,12 @@ const routes = [{
     path: "/connexion",
     name: "Login",
     component: Login
+},
+{
+    path: "/token/:id",
+    name: "googleLogin",
+    component: GoogleLogin
+    
 },
 {
     path: "/inscription",

@@ -17,7 +17,6 @@
                        v-if="(isLogged && url.requiredLogin) || (!isLogged && !url.requiredLogin) || url.alwaysShow"
                        @click="url.callback"
                        :to="url.link"
-                       v-for="url in urls"
           >
             {{url.name}}
           </router-link>
@@ -31,7 +30,6 @@
                      v-if="(isLogged && url.requiredLogin) || (!isLogged && !url.requiredLogin) || url.alwaysShow"
                      @click="url.callback"
                      :to="url.link"
-                     v-for="url in urls"
         >
           {{url.name}}
         </router-link>
@@ -63,11 +61,7 @@ import {mapState} from "vuex";
         this.$router.push('/')
       },
     },
-    watch: {
-      $route(newRoute, oldRoute) {
-        this.isOpen = false;
-      }
-    },
+
     computed: mapState({
       isLogged: state => state.users.isLogged
   })
