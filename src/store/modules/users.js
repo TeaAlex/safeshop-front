@@ -6,7 +6,8 @@ export default {
     shopData: {},
     registed: {},
     token: {},
-    isLogged: false
+    isLogged: false,
+    emailSended: ""
   },
 
   actions: {
@@ -49,6 +50,17 @@ export default {
       },(error) => {
         commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
       });
+    },
+    resetPass({ commit }, payload ){
+      usersApi.resetPass(payload.user)
+      .then((response) => {
+        commit('mailSended' , {
+          status: response.data,
+          emailSended:payload.user
+        })
+      },(error) => {
+        commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
+      });
   }
   },
   mutations: {
@@ -80,6 +92,11 @@ export default {
       state.token = payload;
       state.isLogged = true;
       localStorage.userToken = state.token.token;
+    },
+    mailSended(state,payload ){
+      console.log(payload);
+      state.emailSended = payload.emailSended.email
+      console.log(state.emailSended);
     },
     setIsLogged(state, bool) {
       if (bool === false){

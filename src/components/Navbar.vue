@@ -59,11 +59,12 @@
       return {
         isOpen: false,
         urls: [
-          {name: 'Deconnexion', link: '/logout', requiredLogin: true},
+          {name: 'Liste des commerces', link: '/commerce', alwaysShow: true},         
+          {name: 'Mon profil', link: '/profil', requiredLogin: true},
           {name: 'Mes reservations', link: '/planning', requiredLogin: true},
+          {name: 'Deconnexion', link: '/deconnexion', requiredLogin: true},
           {name: 'Inscription', link: '/inscription', requiredLogin: false},
           {name: 'Connexion', link: '/connexion', requiredLogin: false},
-          {name: 'Liste des commerces', link: '/commerce', alwaysShow: true},
         ]
       }
     },

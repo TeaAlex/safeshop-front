@@ -10,11 +10,12 @@ import Editshop from "../views/EditShop";
 import CreateShop from "../views/CreateShop";
 import ShopShow from "../views/ShopShow";
 import QRcode from "../views/QRcode";
-import { NotFound } from "../views/NotFound";
+import NotFound from "../views/NotFound";
 import ShopBookings from "../views/ShopBookings";
 import Logout from "../views/Logout";
 import UserAccess from "../views/UserAccess";
-import UserProfile from "../views/UserProfile"
+import UserProfile from "../views/UserProfile";
+import MailSend from "../views/MailSend";
 
 
 Vue.use(VueRouter);
@@ -58,6 +59,18 @@ const routes = [{
         component: ResetPass
     },
     {
+        path: "/mailsend",
+        name: "mailSend",
+        component: MailSend,
+        beforeEnter: (to, from, next) => {
+            if (from.name === "ResetPass") {
+                next();
+            } else {
+                next('/resetPassword')
+            }
+        }
+    },
+    {
         path: "/commerce",
         name: "ListShop",
         component: ListShop
@@ -88,7 +101,7 @@ const routes = [{
         component: QRcode
     },
     {
-        path: "/logout",
+        path: "/deconnexion",
         name: "Logout",
         component: Logout
     },
@@ -103,7 +116,7 @@ const routes = [{
         }
     },
     {
-        path: "/userviews",
+        path: "/profil",
         name: "UserAccess",
         component: UserAccess,
         beforeEnter: (to, from, next) => {
