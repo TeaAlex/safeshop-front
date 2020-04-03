@@ -1,5 +1,5 @@
 <template>
-  <header class="lg:px-16 px-6 bg-white flex flex-wrap items-center py-4">
+  <header class="lg:px-16 px-6 bg-white flex flex-wrap items-center py-4 border-teal-500 border-b-4">
     <div class="flex-1 flex justify-between items-center">
       <a href="/" class="block titre">SAFE<span class="text-teal-600 fredoka">SHOP</span></a>
     </div>
