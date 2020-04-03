@@ -12,6 +12,7 @@ import { NotFound } from "../views/NotFound";
 import UserProfile from "../views/UserProfile";
 import UserAccess from "../views/UserAccess";
 import ShopBookings from "../views/ShopBookings";
+import Logout from "../views/Logout";
 
 
 
@@ -83,6 +84,11 @@ const routes = [{
     path: "/commerce/:id",
     name: "ShopShow",
     component: ShopShow
+  },
+  {
+    path: "/logout",
+    name: "Logout",
+    component: Logout
   },
   {path: '/404', component: NotFound},
   {path: '*', redirect: '/404'}
