@@ -9,7 +9,8 @@ import ListShop from "../views/ListShop.vue";
 import Editshop from "../views/EditShop";
 import CreateShop from "../views/CreateShop";
 import ShopShow from "../views/ShopShow";
-import {NotFound} from "../views/NotFound";
+import QRcode from "../views/QRcode";
+import { NotFound } from "../views/NotFound";
 import ShopBookings from "../views/ShopBookings";
 import Logout from "../views/Logout";
 
@@ -17,81 +18,86 @@ import Logout from "../views/Logout";
 Vue.use(VueRouter);
 
 const routes = [{
-  path: "/",
-  name: "Home",
-  component: Home
-},
-  {
-    path: "/connexion",
-    name: "Login",
-    component: Login
-},
-{
-    path: "/token/:id",
-    name: "googleLogin",
-    component: GoogleLogin
-    
-},
-  {
-    path: "/inscription",
-    name: "Register",
-    component: Register
-  },
-  {
-    path: "/inscription/shop",
-    name: "CreateShop",
-    component: CreateShop,
-    beforeEnter: (to, from, next) => {
-      if (from.name === "Register") {
-        next();
-      } else {
-        next('/inscription')
-      }
-    }
-  },
-  {
-    path: "/resetPassword",
-    name: "ResetPass",
-    component: ResetPass
-  },
-  {
-    path: "/commerce",
-    name: "ListShop",
-    component: ListShop
-  },
-  {
-    path: "/editShop/:id",
-    name: "EditShop",
-    component: Editshop,
-    beforeEnter: (to, from, next) => {
-      if (localStorage.getItem("userToken") == null) {
-        next('/connexion')
-      } else next()
-    }
-  },
-  {
-    path: "/commerce/:id/reservations",
-    name: "ShopBookings",
-    component: ShopBookings
-  },
-  {
-    path: "/commerce/:id",
-    name: "ShopShow",
-    component: ShopShow
-  },
-  {
-    path: "/logout",
-    name: "Logout",
-    component: Logout
-  },
-  {path: '/404', component: NotFound},
-  {path: '*', redirect: '/404'}
+        path: "/",
+        name: "Home",
+        component: Home
+    },
+    {
+        path: "/connexion",
+        name: "Login",
+        component: Login
+    },
+    {
+        path: "/token/:id",
+        name: "googleLogin",
+        component: GoogleLogin
+
+    },
+    {
+        path: "/inscription",
+        name: "Register",
+        component: Register
+    },
+    {
+        path: "/inscription/shop",
+        name: "CreateShop",
+        component: CreateShop,
+        beforeEnter: (to, from, next) => {
+            if (from.name === "Register") {
+                next();
+            } else {
+                next('/inscription')
+            }
+        }
+    },
+    {
+        path: "/resetPassword",
+        name: "ResetPass",
+        component: ResetPass
+    },
+    {
+        path: "/commerce",
+        name: "ListShop",
+        component: ListShop
+    },
+    {
+        path: "/editShop/:id",
+        name: "EditShop",
+        component: Editshop,
+        beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("userToken") == null) {
+                next('/connexion')
+            } else next()
+        }
+    },
+    {
+        path: "/commerce/:id/reservations",
+        name: "ShopBookings",
+        component: ShopBookings
+    },
+    {
+        path: "/commerce/:id",
+        name: "ShopShow",
+        component: ShopShow
+    },
+    {
+        path: "/qrcode",
+        name: "QRcode",
+        component: QRcode
+    },
+    {
+        path: "/logout",
+        name: "Logout",
+        component: Logout
+    },
+    { path: '/404', component: NotFound },
+    { path: '*', redirect: '/404' }
 ];
 
 const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes
+    mode: "history",
+    base: process.env.BASE_URL,
+    routes
 });
 
 export default router;
