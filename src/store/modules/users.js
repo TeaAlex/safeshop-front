@@ -79,7 +79,10 @@ export default {
     isSuccessfullyLogged( state,payload ){
       state.token = payload;
       state.isLogged = true;
-      localStorage.userToken = state.token.token; 
+      localStorage.userToken = state.token.token;
+    },
+    setIsLogged(state, bool) {
+      state.isLogged = bool;
     }
   }
 };
