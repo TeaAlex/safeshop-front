@@ -10,6 +10,7 @@ import CreateShop from "../views/CreateShop";
 import ShopShow from "../views/ShopShow";
 import {NotFound} from "../views/NotFound";
 import ShopBookings from "../views/ShopBookings";
+import Logout from "../views/Logout";
 
 
 Vue.use(VueRouter);
@@ -70,6 +71,11 @@ const routes = [{
     path: "/commerce/:id",
     name: "ShopShow",
     component: ShopShow
+  },
+  {
+    path: "/logout",
+    name: "Logout",
+    component: Logout
   },
   {path: '/404', component: NotFound},
   {path: '*', redirect: '/404'}
