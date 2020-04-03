@@ -72,14 +72,9 @@
                 this.fields[1]["value"] = user.firstname;
                 this.fields[2]["value"] = user.email;
             },
-            editUser(body) {
-                console.log(body),
-                    api.put('/user/edit', body)
-                        .then(response => {
-                            if(response.status == "Success"){
-                                console.log(true);
-                            }
-                        })
+            editUser: function(e) {
+                this.$store.dispatch('users/editUser',{user:e,vm: this})
+                this.$router.push({name: "UserAccess"})
             }
         }
     }

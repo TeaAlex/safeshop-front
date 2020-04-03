@@ -71,7 +71,17 @@ export default {
       },(error) => {
         commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
       });
-  }
+  },
+    editUser({ commit }, payload ){
+      usersApi.editUser(payload.user)
+          .then((response) => {
+            commit('isSuccessfullyEdited' , {
+              edited: response.data
+            })
+          },(error) => {
+            commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
+          });
+    }
   },
   mutations: {
     setShopData(state, payload) {
@@ -117,6 +127,11 @@ export default {
     passwordChanged(state,payload ){
       console.log(payload);
       console.log(state);
+    },
+    isSuccessfullyEdited( state,payload ){
+      console.log(payload);
+      state.editUser = payload.user;
+      console.log(state.editUser);
     },
   }
 };
