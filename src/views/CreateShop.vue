@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center mt-10">
-    <div class="bg-white shadow-md rounded text-center px-8 w-1/4 pt-6 pb-8 mb-4 flex flex-col">
+    <div class="bg-white shadow-md rounded text-center px-8 lg:w-1/4 pt-6 pb-8 mb-4 flex flex-col">
       <h1 class="block titre mb-3">
         SAFE<span class="text-teal-600 fredoka">SHOP</span>
       </h1>

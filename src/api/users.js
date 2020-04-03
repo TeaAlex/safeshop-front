@@ -5,7 +5,7 @@ export default {
     getShopData(siret) {
         // then return the promise of the axios instance
         return axios.get('https://api.insee.fr/entreprises/sirene/V3/siret/'+siret,{
-            headers:  {Authorization: "Bearer 57f090d1-d9ba-35c4-9213-121047156782"}}).catch();
+            headers:  {Authorization: `Bearer ${process.env.VUE_APP_INSEE_TOKEN}`}}).catch();
     },
     login({email, password}) {
         // then return the promise of the axios instance
@@ -22,9 +22,8 @@ export default {
             "password": user.password,
             "password_confirmation": user.resetpassword
         }).catch();
-    },    
+    },
     register_shop(user){
-        console.log(user);
         return api.post('/register_shop',{
             "firstname": "Societé",
             "lastname": user.shopName,
