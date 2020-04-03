@@ -16,6 +16,7 @@ import Logout from "../views/Logout";
 import UserAccess from "../views/UserAccess";
 import UserProfile from "../views/UserProfile";
 import MailSend from "../views/MailSend";
+import ChangePassword from "../views/ChangePassword";
 
 
 Vue.use(VueRouter);
@@ -34,6 +35,12 @@ const routes = [{
         path: "/token/:id",
         name: "googleLogin",
         component: GoogleLogin
+
+    },
+    {
+        path: "/reset_password/:id",
+        name: "googleLogin",
+        component: ChangePassword
 
     },
     {

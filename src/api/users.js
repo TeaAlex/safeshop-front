@@ -14,6 +14,15 @@ export default {
             password
         })
     },
+    changePassword(user) {
+        // then return the promise of the axios instance
+        console.log(user);
+        return api.post('/update-password-by-token', {
+            "token": localStorage.getItem("changePass"),
+            "password": user.new_password,
+            "password_confirmation": user.confirm_password
+        })
+    },
     resetPass({email}) {
         // then return the promise of the axios instance
         return api.post('/forgot-password', {
