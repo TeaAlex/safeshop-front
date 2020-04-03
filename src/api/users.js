@@ -60,6 +60,11 @@ export default {
             "email": user.email
         }).catch();
     },
+    validate_mail({token}){
+        return api.post('/validate_mail',{
+            "token": token
+        });
+    },
     // getuser(uuid){
     //     return axios.get('http://localhost:8011/users/'+uuid,{
     //         headers:  {Authorization: "Bearer "+localStorage.getItem("userToken")}

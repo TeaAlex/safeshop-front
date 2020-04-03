@@ -7,7 +7,8 @@ export default {
     registed: {},
     token: {},
     isLogged: false,
-    emailSended: ""
+    emailSended: "",
+    validated: ""
   },
 
   actions: {
@@ -81,6 +82,16 @@ export default {
           },(error) => {
             commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
           });
+    },
+    validate_mail({ commit }, payload ){
+      usersApi.validate_mail(payload.user)
+      .then((response) => {
+        commit('validateMail' , {
+          validated: response.data
+        })
+      },(error) => {
+        commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
+      });
     }
   },
   mutations: {
@@ -90,6 +101,10 @@ export default {
     },
     registered(state, payload) {
       state.registed = payload;
+    },
+    validateMail(state, payload) {
+      console.log("valideEmail",payload);
+      state.validated = payload.validated;
     },
     hasFailed(state, payload){
       state.isLogged = false;
