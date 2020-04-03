@@ -8,73 +8,77 @@ import ListShop from "../views/ListShop.vue";
 import Editshop from "../views/EditShop";
 import CreateShop from "../views/CreateShop";
 import ShopShow from "../views/ShopShow";
-import { NotFound } from "../views/NotFound";
-
+import {NotFound} from "../views/NotFound";
+import ShopBookings from "../views/ShopBookings";
 
 
 Vue.use(VueRouter);
 
 const routes = [{
-    path: "/",
-    name: "Home",
-    component: Home
+  path: "/",
+  name: "Home",
+  component: Home
 },
-{
+  {
     path: "/connexion",
     name: "Login",
     component: Login
-},
-{
+  },
+  {
     path: "/inscription",
     name: "Register",
     component: Register
-},
-{
+  },
+  {
     path: "/inscription/shop",
     name: "CreateShop",
     component: CreateShop,
     beforeEnter: (to, from, next) => {
-        if (from.name === "Register") {
-            next();
-        } else {
-            next('/inscription')
-        }
+      if (from.name === "Register") {
+        next();
+      } else {
+        next('/inscription')
+      }
     }
-},
-{
+  },
+  {
     path: "/resetPassword",
     name: "ResetPass",
     component: ResetPass
-},
-{
+  },
+  {
     path: "/commerce",
     name: "ListShop",
     component: ListShop
-},
-{
-    path: "/editShop",
+  },
+  {
+    path: "/editShop/:id",
     name: "EditShop",
     component: Editshop,
     beforeEnter: (to, from, next) => {
-        if (localStorage.getItem("userToken") == null) {
-          next('/connexion')
-        }
-        else next()
-      }
-},
-{
+      if (localStorage.getItem("userToken") == null) {
+        next('/connexion')
+      } else next()
+    }
+  },
+  {
+    path: "/commerce/:id/reservations",
+    name: "ShopBookings",
+    component: ShopBookings
+  },
+  {
     path: "/commerce/:id",
     name: "ShopShow",
     component: ShopShow
-},
-{ path: '/404', component: NotFound },
-{ path: '*', redirect: '/404' }
+  },
+  {path: '/404', component: NotFound},
+  {path: '*', redirect: '/404'}
 ];
 
 const router = new VueRouter({
-    mode: "history",
-    base: process.env.BASE_URL,
-    routes
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes
 });
 
 export default router;
