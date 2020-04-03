@@ -6,7 +6,7 @@
                     Editer mon profil
                 </h1>
 
-                <a href="/userview"  class="bg-gray-800 hover:bg-blue-dark text-xl w-1/8 text-white font-bold py-2 px-4 rounded flex-col" type="button">
+                <a href="/profil"  class="bg-gray-800 hover:bg-blue-dark text-xl w-1/8 text-white font-bold py-2 px-4 rounded flex-col" type="button">
                     Retour</a>
             </div>
         </div>

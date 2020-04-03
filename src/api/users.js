@@ -14,6 +14,12 @@ export default {
             password
         })
     },
+    resetPass({email}) {
+        // then return the promise of the axios instance
+        return api.post('/forgot-password', {
+            "uid": email
+        })
+    },
     register(user){
         return api.post('/register',{
             "firstname": user.prenom,

@@ -30,6 +30,7 @@
       </Formik>
       <Formik @onSubmit="createAccount" v-else>
         <div class="flex flex-col w-56 m-auto my-4">
+
           <button type="button" class="google-button">
             <a :href="googleLink">
             <span class="google-button__icon">

@@ -5,7 +5,7 @@
         SAFE<span class="text-teal-600 fredoka">SHOP</span>
       </h1>
       <h3 class="block label-forms mb-5">Réinitialiser votre mot de passe</h3>
-      <Formik>
+      <Formik @onSubmit="resetPass">
         <FormGroup
           v-for="field in fields"
           :key="field.name"
@@ -38,6 +38,12 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    resetPass: function(e) {
+      this.$store.dispatch('users/resetPass',{user:e,vm: this})
+      this.$router.push({name: "mailSend"})
+	}
   }
 };
 </script>
