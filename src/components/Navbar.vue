@@ -11,29 +11,39 @@
       <div class="h-10 w-10 ml-auto" @click="isOpen = !isOpen">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g data-name="Layer 2"><g data-name="close"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"/></g></g></svg>
       </div>
-      <nav class="text-right">
+      <nav class="text-right" v-if="isLogged">
         <ul class="lg:flex items-center justify-between text-base text-gray-700 pt-4 lg:pt-0">
           <router-link class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-600"
-                       v-if="(isLogged && url.requiredLogin) || (!isLogged && !url.requiredLogin) || url.alwaysShow"
-                       @click="url.callback"
-                       :to="url.link"
-                       v-for="url in urls"
-          >
-            {{url.name}}
+                       :to="url.link" v-for="url in authUrls"
+                       :key="url.name"
+          >{{url.name}}
           </router-link>
         </ul>
+      </nav>
+      <nav v-else class="text-right">
+        <router-link class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-600"
+                     :to="url.link"
+                     v-for="url in unAuthUrls"
+                     :key="url.name"
+        >{{url.name}}
+        </router-link>
       </nav>
     </div>
 
     <div class="hidden lg:flex lg:items-center lg:w-auto w-full" id="menu">
-      <nav class="flex items-center">
+      <nav class="flex items-center" v-if="isLogged">
         <router-link class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-600"
-                     v-if="(isLogged && url.requiredLogin) || (!isLogged && !url.requiredLogin) || url.alwaysShow"
-                     @click="url.callback"
                      :to="url.link"
-                     v-for="url in urls"
-        >
-          {{url.name}}
+                     v-for="url in authUrls"
+                     :key="url.name"
+        >{{url.name}}
+        </router-link>
+      </nav>
+      <nav v-else class="flex items-center">
+        <router-link class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-600"
+                     :to="url.link" v-for="url in unAuthUrls"
+                     :key="url.name"
+        >{{url.name}}
         </router-link>
       </nav>
     </div>
@@ -41,35 +51,37 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+  import {mapState} from "vuex";
+
   export default {
     name: 'Navbar',
     data() {
       return {
         isOpen: false,
         urls: [
-          { name: 'Deconnexion', link: '/deconnexion', requiredLogin: true, callback: this.disconnect },
-          { name: 'Mes reservations', link: '/planning', requiredLogin: true , callback: () => {}},
-          { name: 'Inscription', link: '/inscription', requiredLogin: false , callback: () => {}},
-          { name: 'Connexion', link: '/connexion', requiredLogin: false , callback: () => {}},
-          { name: 'Liste des commerces', link: '/commerce', alwaysShow: true , callback: () => {}},
+          {name: 'Deconnexion', link: '/logout', requiredLogin: true},
+          {name: 'Mes reservations', link: '/planning', requiredLogin: true},
+          {name: 'Inscription', link: '/inscription', requiredLogin: false},
+          {name: 'Connexion', link: '/connexion', requiredLogin: false},
+          {name: 'Liste des commerces', link: '/commerce', alwaysShow: true},
         ]
       }
     },
-    methods:{
-      disconnect: function () {
-        localStorage.removeItem("userToken");
-        this.isLogged = false;
-        this.$router.push('/')
-      },
-    },
     watch: {
-      $route(newRoute, oldRoute) {
+      $route() {
         this.isOpen = false;
       }
     },
-    computed: mapState({
-      isLogged: state => state.users.isLogged
-  })
+    computed: {
+      authUrls() {
+        return this.urls.filter(({requiredLogin, alwaysShow}) => requiredLogin || alwaysShow)
+      },
+      unAuthUrls() {
+        return this.urls.filter(({requiredLogin, alwaysShow}) => !requiredLogin || alwaysShow)
+      },
+      ...mapState({
+        isLogged: state => state.users.isLogged
+      })
+    }
   }
 </script>
