@@ -16,7 +16,6 @@ export default {
     },
     changePassword(user) {
         // then return the promise of the axios instance
-        console.log(user);
         return api.post('/update-password-by-token', {
             "token": localStorage.getItem("changePass"),
             "password": user.new_password,
@@ -52,6 +51,13 @@ export default {
             "phone_number":user.number,
             "siret": user.siret,
 	        "siren": user.siren
+        }).catch();
+    },
+    editUser(user){
+        return api.put('/user/edit',{
+            "firstname": user.firstname,
+            "lastname": user.lastname,
+            "email": user.email
         }).catch();
     },
     // getuser(uuid){
