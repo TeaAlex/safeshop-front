@@ -13,6 +13,8 @@ import QRcode from "../views/QRcode";
 import { NotFound } from "../views/NotFound";
 import ShopBookings from "../views/ShopBookings";
 import Logout from "../views/Logout";
+import UserAccess from "../views/UserAccess";
+import UserProfile from "../views/UserProfile"
 
 
 Vue.use(VueRouter);
@@ -61,7 +63,7 @@ const routes = [{
         component: ListShop
     },
     {
-        path: "/editShop/:id",
+        path: "/editShop",
         name: "EditShop",
         component: Editshop,
         beforeEnter: (to, from, next) => {
@@ -89,6 +91,26 @@ const routes = [{
         path: "/logout",
         name: "Logout",
         component: Logout
+    },
+    {
+        path: "/edituser",
+        name: "UserProfile",
+        component: UserProfile,
+        beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("userToken") == null) {
+                next('/connexion')
+            } else next()
+        }
+    },
+    {
+        path: "/userviews",
+        name: "UserAccess",
+        component: UserAccess,
+        beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("userToken") == null) {
+                next('/connexion')
+            } else next()
+        }
     },
     { path: '/404', component: NotFound },
     { path: '*', redirect: '/404' }
