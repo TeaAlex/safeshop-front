@@ -15,9 +15,14 @@
         <ul class="lg:flex items-center justify-between text-base text-gray-700 pt-4 lg:pt-0">
           <router-link class="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-600"
                        :to="url.link"
+<<<<<<< HEAD
                        v-for="url in authUrls"
                        :key="url.name"
           >{{url.name}}
+=======
+          >
+            {{url.name}}
+>>>>>>> connexion fonctionelle
           </router-link>
         </ul>
       </nav>
@@ -85,6 +90,14 @@
         isLogged: state => state.users.isLogged
       })
     }
+
+    methods:{
+      disconnect: function () {
+        localStorage.removeItem("userToken");
+        this.isLogged = false;
+        this.$router.push('/')
+      },
+    },
 
   }
 </script>
