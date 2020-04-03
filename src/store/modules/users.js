@@ -51,6 +51,16 @@ export default {
         commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
       });
     },
+    changePassword({ commit }, payload ){
+      usersApi.changePassword(payload.user)
+      .then((response) => {
+        commit('passwordChanged' , { 
+          data : response.data
+        })
+      },(error) => {
+        commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
+      });
+    },
     resetPass({ commit }, payload ){
       usersApi.resetPass(payload.user)
       .then((response) => {
@@ -103,6 +113,10 @@ export default {
         state.token = {};
       }
       state.isLogged = bool;
-    }
+    },
+    passwordChanged(state,payload ){
+      console.log(payload);
+      console.log(state);
+    },
   }
 };
