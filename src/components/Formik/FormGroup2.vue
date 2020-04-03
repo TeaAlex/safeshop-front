@@ -22,7 +22,7 @@
     components: {
       Field
     },
-    props: ['type', 'label', 'name', 'value','style']
+    props: ['type', 'label', 'name', 'value'],
   }
 </script>
 
