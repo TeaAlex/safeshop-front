@@ -5,7 +5,7 @@
         Editer mon enseigne
       </h1>
     </div>
-    <Formik v-if="initalized" @onSubmit="submit">
+    <Formik v-if="initalized" @onSubmit="submit" class="mx-auto w-160">
       <FormGroup2 v-for="(field) in fields"
                   :key="field.name"
                   :type="field.type"
@@ -15,65 +15,70 @@
                   class="w-2/3"
       >
       </FormGroup2>
-      <div class="flex flex-col w-2/3 m-auto my-2 items-stretch invisible sm:invisible md:visible lg:visible xl:visible">
-        <div class="flex flex-wrap -mx-3 mb-6 justify-between ">
-          <div class="w-full md:w-1/4 px-3 md:mb-0 ">
-            <label class="font-semibold text-gray-700 block mb-2 align-middle">Jour</label>
-          </div>
-          <div class="w-full md:w-1/4 px-3 md:mb-0 ">
-            <label class="font-semibold text-gray-700 block mb-2 align-middle">Ouverture</label>
-          </div>
-          <div class="w-full md:w-1/4 px-3 md:mb-0 ">
-            <label class="font-semibold text-gray-700 block mb-2 align-middle">Fermeture</label>
-          </div>
-        </div>
-      </div>
-      <Date v-for="date in dates"
-            :key="date.name"
-            :type="date.type"
-            :name="date.name1"
-            :name1="date.name2"
-            :value1="date.value1"
-            :value2="date.value2"
-            :label="date.label"
-            class="justify-center"
-      >
-        {{ date.label }}
-      </Date>
+      <table class="mx-auto w-2/3 text-center text-gray-800">
+        <thead>
+          <tr>
+            <th>Jour</th>
+            <th>Ouverture</th>
+            <th>Fermeture</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(date, index) in dates" :key="index">
+            <td>{{date.label}}</td>
+            <td>
+              <Field
+                      :key="date.name1"
+                      :type="date.type"
+                      :name="date.name1"
+                      :value="date.value1"
+                      :label="date.label"
+              ></Field>
+            </td>
+            <td>
+              <Field
+                      :key="date.name2"
+                      :type="date.type"
+                      :name="date.name2"
+                      :value="date.value2"
+                      :label="date.label"
+              ></Field>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </Formik>
+    <!-- <input type="time" id="number" v-model="monday.start"> -->
   </div>
 </template>
 
 <script>
   import Formik from "../components/Formik/Formik";
   import FormGroup2 from "../components/Formik/FormGroup2";
-  import Date from "../components/Date";
+  import Field from "../components/Formik/Field"
   import api from "../api/api";
 
   export default {
     name: "Editshop",
-    components: {Formik, FormGroup2, Date},
-    beforeMount() {
-      api.get('/user/current-user')
-        .then(response => {
-          this.user = response.data.user;
-          if (response.data.user.role_id == 2) {
-            api.get('/shop/show')
-              .then(response => {
-                this.shop = response.data.shop;
-                this.setFields();
-                api.get(`/schedule/shop/${this.shop.id}/show`)
-                  .then(response => {
-                    const {schedules, interval, number_max} = response.data;
-                    this.schedules = schedules;
-                    this.fields['number_max']['value'] = number_max;
-                    this.fields['interval']['value'] = interval;
-                    this.setDates();
-                    this.initalized = true
-                  });
-              })
-          }
-        });
+    components: {Formik, FormGroup2, Field},
+    async mounted() {  
+      let response = await api.get('/user/current-user');
+      const {user} = response.data;
+      this.user = user;
+      if(user.role_id !== 2) {
+        throw new Error("User is not a merchant");
+      }
+      response = await api.get('/shop/show')
+      const {shop} = await response.data;
+      this.shop = shop;
+      this.setFields();
+      response = await api.get(`/schedule/shop/${shop.id}/show`);
+      const {schedules, interval, number_max} = response.data;
+      this.schedules = schedules;
+      this.fields['number_max']['value'] = number_max;
+      this.fields['interval']['value'] = interval;
+      this.setDates();
+      this.initalized = true
     },
     data: function () {
       return {
