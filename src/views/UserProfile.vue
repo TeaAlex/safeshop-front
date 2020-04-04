@@ -39,7 +39,6 @@
             api.get('/user/current-user')
                 .then(response => { this.user = response.data.user;
                     this.setFieldsValue(this.user)});
-            ;
         },
         data: function () {
             return {

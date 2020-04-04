@@ -50,7 +50,6 @@ export default {
             "city": user.city,
             "phone_number":user.number,
             "siret": user.siret,
-	        "siren": user.siren
         }).catch();
     },
     editUser(user){
