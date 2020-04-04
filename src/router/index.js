@@ -17,6 +17,7 @@ import UserAccess from "../views/UserAccess";
 import UserProfile from "../views/UserProfile";
 import MailSend from "../views/MailSend";
 import ChangePassword from "../views/ChangePassword";
+import ValidateEmail from "../views/ValidateEmail";
 
 
 Vue.use(VueRouter);
@@ -41,7 +42,11 @@ const routes = [{
         path: "/reset_password/:id",
         name: "googleLogin",
         component: ChangePassword
-
+    },
+    {
+        path: "/validate_email/:id",
+        name: "validateEmail",
+        component: ValidateEmail
     },
     {
         path: "/inscription",
