@@ -18,6 +18,7 @@ import UserProfile from "../views/UserProfile";
 import MailSend from "../views/MailSend";
 import ChangePassword from "../views/ChangePassword";
 import ValidateEmail from "../views/ValidateEmail";
+import UserBookings from "../views/UserBookings";
 
 
 Vue.use(VueRouter);
@@ -40,7 +41,7 @@ const routes = [{
     },
     {
         path: "/reset_password/:id",
-        name: "googleLogin",
+        name: "resetPassword",
         component: ChangePassword
     },
     {
@@ -131,6 +132,16 @@ const routes = [{
         path: "/profil",
         name: "UserAccess",
         component: UserAccess,
+        beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("userToken") == null) {
+                next('/connexion')
+            } else next()
+        }
+    },
+    {
+        path: '/reservations',
+        name: 'UserBookings',
+        component: UserBookings,
         beforeEnter: (to, from, next) => {
             if (localStorage.getItem("userToken") == null) {
                 next('/connexion')

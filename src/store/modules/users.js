@@ -8,7 +8,8 @@ export default {
     token: {},
     isLogged: false,
     emailSended: "",
-    validated: ""
+    validated: "",
+    user: {},
   },
 
   actions: {
@@ -42,20 +43,18 @@ export default {
         commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
       });
     },
-    login({ commit }, payload ){
-      usersApi.login(payload.user)
-      .then((response) => {
-        commit('isSuccessfullyLogged' , {
-          token: response.data.token
-        })
-      },(error) => {
-        commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
-      });
+    async login({ commit }, payload ){
+      let response = await usersApi.login(payload.user);
+      const {token} = response.data;
+      commit('isSuccessfullyLogged', {token});
+      response = await usersApi.getUser();
+      const {user} = response.data;
+      commit('setUser', user);
     },
     changePassword({ commit }, payload ){
       usersApi.changePassword(payload.user)
       .then((response) => {
-        commit('passwordChanged' , { 
+        commit('passwordChanged' , {
           data : response.data
         })
       },(error) => {
@@ -90,7 +89,7 @@ export default {
           validated: response.data
         })
       },(error) => {
-        commit('validateMail' , { 
+        commit('validateMail' , {
           validated: error.response.data
         })
         commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
@@ -98,6 +97,9 @@ export default {
     }
   },
   mutations: {
+    setUser(state, user) {
+      state.user = user
+    },
     setShopData(state, payload) {
       state.shopData = payload.shopData.etablissement;
       console.log(state.shopData);
