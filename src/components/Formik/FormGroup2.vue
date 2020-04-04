@@ -1,6 +1,6 @@
 <template>
 
-  <div class="flex-col w-2/3 m-auto my-4">
+  <div class="w-full mb-5">
     <label class="font-semibold text-gray-700 text-left block mb-2">{{ label }}</label>
     <Field :key="name"
            :type="type"
@@ -22,7 +22,7 @@
     components: {
       Field
     },
-    props: ['type', 'label', 'name', 'value','style']
+    props: ['type', 'label', 'name', 'value'],
   }
 </script>
 

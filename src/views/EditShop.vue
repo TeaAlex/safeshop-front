@@ -1,143 +1,194 @@
 <template>
-    <v-container>
-    <div class="flex flex-col w-56 m-auto my-4">
-        <h1 class="label-forms mb-5 mt-10 mb:text-4xl ">
-            Editer mon enseigne
-        </h1>
-    </div>
-    <Formik >
-
-        <FormGroup2 v-for="field in fields"
-                   :key="field.name"
-                   :type="field.type"
-                   :name="field.name"
-                   :value="field.value"
-                   :label="field.label"
-                   class="w-2/3"
+  <div>
+    <div class="mx-auto w-96">
+      <h1 class="label-forms mb-5 mt-10 mb:text-4xl text-center">
+        Editer mon enseigne
+      </h1>
+      <Formik v-if="initalized" @onSubmit="submit">
+        <FormGroup2 v-for="(field) in fields"
+                    :key="field.name"
+                    :type="field.type"
+                    :name="field.name"
+                    :value="field.value"
+                    :label="field.label"
+                    class="w-2/3"
         >
         </FormGroup2>
-        <div class="flex flex-col w-2/3 m-auto my-2 items-stretch invisible sm:invisible md:visible lg:visible xl:visible">
-            <div class="flex flex-wrap -mx-3 mb-6 justify-between ">
-                <div class="w-full md:w-1/4 px-3 md:mb-0 ">
-                    <label class="font-semibold text-gray-700 block mb-2 align-middle">Jour</label>
-                </div>
-                <div class="w-full md:w-1/4 px-3 md:mb-0 ">
-                    <label class="font-semibold text-gray-700 block mb-2 align-middle">Ouverture</label>
-                </div>
-                <div class="w-full md:w-1/4 px-3 md:mb-0 ">
-                    <label class="font-semibold text-gray-700 block mb-2 align-middle">Fermeture</label>
-                </div>
-            </div>
-        </div>
-
-        <Date v-for="date in dates"
-              :key="date.name"
-              :type="date.type"
-              :name="date.name"
-              :value="date.value"
-              :label="date.label"
-              class="justify-center"
-        >
-        </Date>
-
-    </Formik>
-
-    </v-container>
+        <table class="mx-auto text-center text-gray-800">
+          <thead>
+          <tr>
+            <th>Jour</th>
+            <th>Ouverture</th>
+            <th>Fermeture</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(schedule, index) in schedules" :key="index">
+            <td>{{dayMap[schedule.day]}}</td>
+            <td>
+              <input class="border rounded p-2" type="time" v-model="schedule.open_hour">
+            </td>
+            <td>
+              <input class="border rounded p-2" type="time" v-model="schedule.close_hour">
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </Formik>
+      <div class="mt-4" v-if="status !== null">
+        <HelpMessage :type="submitMessage.type">{{submitMessage.text}}</HelpMessage>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-    import Formik from "../components/Formik/Formik";
-    import FormGroup2 from "../components/Formik/FormGroup2";
-    import Date from "../components/Date";
-    export default {
-        name: "Editshop",
-        components: {Formik, FormGroup2, Date},
-        data: function () {
-            return {
-                fields: [
-                    {
-                        label: 'Nom',
-                        name: 'name',
-                        type: 'text',
-                    },
-                    {
-                        label: 'Adresse',
-                        name: 'address',
-                        type: 'text',
-                    },
-                    {
-                        label: 'Code',
-                        name: 'postal',
-                        type: 'number',
-                    },
-                    {
-                        label: 'Ville',
-                        name: 'city',
-                        type: 'text',
-                    },
-                    {
-                        label: 'Intervalle des créneaux (minutes)',
-                        name: 'interval',
-                        type: 'number',
-                    },
-                    {
-                        label: 'Nombre de personnes par créneau',
-                        name: 'number_max',
-                        type: 'number',
-                    },
-                ],
-                dates: [
-                    {
-                        label: 'lundi',
-                        field1: 'begin_lun',
-                        field2: 'end_lun',
-                        type: 'time',
-                    },
-                    {
-                        label: 'Mardi',
-                        field1: 'begin_mar',
-                        field2: 'end_mar',
-                        type: 'time',
-                    },
-                    {
-                        label: 'Mercredi',
-                        field1: 'begin_mer',
-                        field2: 'end_mer',
-                        type: 'time',
-                    },
-                    {
-                        label: 'Jeudi',
-                        field1: 'begin_jeu',
-                        field2: 'end_jeu',
-                        type: 'time',
-                    },
-                    {
-                        label: 'Vendredi',
-                        field1: 'begin_ven',
-                        field2: 'end_ven',
-                        type: 'time',
-                    },
-                    {
-                        label: 'Samedi',
-                        field1: 'begin_sam',
-                        field2: 'end_sam',
-                        type: 'time',
-                    },
-                    {
-                        label: 'Dimanche',
-                        field1: 'begin_dim',
-                        field2: 'end_dim',
-                        type: 'time',
-                    },
+  import Formik from "../components/Formik/Formik";
+  import FormGroup2 from "../components/Formik/FormGroup2";
+  import api from "../api/api";
+  import HelpMessage from "../components/HelpMessage";
 
-                ],
-
-
-            }
+  export default {
+    name: "Editshop",
+    components: {Formik, FormGroup2, HelpMessage},
+    async mounted() {
+      let response = await api.get('/user/current-user');
+      const {user} = response.data;
+      this.user = user;
+      if (user.role_id !== 2) {
+        throw new Error("User is not a merchant");
+      }
+      response = await api.get('/shop/show');
+      const {shop} = await response.data;
+      this.shop = shop;
+      this.setFields();
+      try {
+        response = await api.get(`/schedule/shop/${shop.id}/show`);
+        const {schedules, interval, number_max} = response.data;
+        this.schedules = schedules;
+        this.fields['number_max']['value'] = number_max;
+        this.fields['interval']['value'] = interval;
+      } catch (e) {
+        const days = Object.keys(this.dayMap);
+        days.forEach(day => {
+          this.schedules.push({
+            shop_id: this.shop.id,
+            open_hour: "09:00",
+            close_hour: "17:00",
+            day: day,
+            isopen: true,
+            number_max: null,
+            interval: null
+          })
+        });
+        this.newSchedule = true;
+      }
+      this.initalized = true
+    },
+    data: function () {
+      return {
+        initalized: false,
+        newSchedule: false,
+        dayMap: {
+          1: 'Lundi',
+          2: 'Mardi',
+          3: 'Mercredi',
+          4: 'Jeudi',
+          5: 'Vendredi',
+          6: 'Samedi',
+          7: 'Dimanche'
+        },
+        status: null,
+        fields: {
+          label: {
+            label: 'Label',
+            name: 'label',
+            type: 'text',
+            value: '',
+          },
+          address: {
+            label: 'Adresse',
+            name: 'address',
+            type: 'text',
+            value: '',
+          },
+          zip_code: {
+            label: 'Code',
+            name: 'zip_code',
+            type: 'number',
+            value: ''
+          },
+          city: {
+            label: 'Ville',
+            name: 'city',
+            type: 'text',
+            value: ''
+          },
+          interval: {
+            label: 'Combien de temps passent en moyenne vos clients (en minutes)',
+            name: 'interval',
+            type: 'number',
+            value: ''
+          },
+          number_max: {
+            label: 'Combien de personne pouvez-vous accueillir ?',
+            name: 'number_max',
+            type: 'number',
+            value: ''
+          }
+        },
+        schedules: [],
+      }
+    },
+    computed: {
+      submitMessage() {
+        if (this.status === 200) {
+          return {
+            type: 'success',
+            text: 'Enregistrement réussi'
+          }
+        } else if (this.status >= 400) {
+          return {
+            type: 'error',
+            text: "Erreur lors de l'enregistrement"
+          }
         }
-    }
+        return {};
+      }
+    },
+    methods: {
+      setFields() {
+        Object.entries(this.shop).forEach(([key, value]) => {
+          if (this.fields[key]) {
+            this.fields[key]['value'] = value
+          }
+        })
+      },
+
+      async submit(values) {
+        const promises = [];
+        promises.push(api.put(`/shop/${this.shop.id}/edit`, values));
+
+        this.schedules.forEach((schedule) => {
+          schedule.number_max = values.number_max;
+          schedule.interval = values.interval;
+          if (this.newSchedule) {
+            promises.push(api.post(`/schedule/${this.shop.id}/create`, schedule))
+          } else {
+            promises.push(api.put(`/schedule/${schedule.id}/edit`, schedule));
+          }
+        });
+        try {
+          await Promise.all(promises);
+          await api.post(`/slot/${this.shop.id}/generate`);
+          this.status = 200;
+        } catch (e) {
+          this.status = 400;
+        }
+
+      }
+    },
+  }
 </script>
-
 <style scoped>
-
 </style>
