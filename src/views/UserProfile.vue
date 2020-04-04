@@ -57,12 +57,7 @@
                         type:"text",
                         value: ""
                     },
-                    {
-                        label:"Email",
-                        name:"email",
-                        type:"email",
-                        value: ""
-                    },
+
                 ],
             }
         },
@@ -70,7 +65,6 @@
             setFieldsValue(user) {
                 this.fields[0]["value"] = user.lastname; // nom du user
                 this.fields[1]["value"] = user.firstname;
-                this.fields[2]["value"] = user.email;
             },
             editUser: function(e) {
                 this.$store.dispatch('users/editUser',{user:e,vm: this})
