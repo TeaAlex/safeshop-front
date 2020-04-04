@@ -56,8 +56,7 @@ export default {
     editUser(user){
         return api.put('/user/edit',{
             "firstname": user.firstname,
-            "lastname": user.lastname,
-            "email": user.email
+            "lastname": user.lastname
         }).catch();
     },
     validate_mail({token}){

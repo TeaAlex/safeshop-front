@@ -76,7 +76,7 @@ export default {
     editUser({ commit }, payload ){
       usersApi.editUser(payload.user)
           .then((response) => {
-            commit('isSuccessfullyEdited' , {
+            commit('isEdited' , {
               edited: response.data
             })
           },(error) => {
@@ -146,7 +146,7 @@ export default {
       console.log(payload);
       console.log(state);
     },
-    isSuccessfullyEdited( state,payload ){
+    isEdited( state,payload ){
       console.log(payload);
       state.editUser = payload.user;
       console.log(state.editUser);
