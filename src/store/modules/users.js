@@ -90,10 +90,10 @@ export default {
           validated: response.data
         })
       },(error) => {
-        commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
         commit('validateMail' , { 
           validated: error.response.data
         })
+        commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
       });
     }
   },

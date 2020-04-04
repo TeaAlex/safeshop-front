@@ -8,7 +8,7 @@
       <router-link to="/connexion" class="inline-block align-baseline mt-4 font-bold text-sm text-blue hover:text-blue-darker" href="#"
       >Connectez vous à SafeShop</router-link>
     </div>
-    <div v-else>
+    <div v-else class="bg-white shadow-md rounded text-center px-8 col-10 pt-6 pb-8 mb-4 flex flex-col">
       <h1 class="block titre mb-3">
         SAFE<span class="text-teal-600 fredoka">SHOP</span>
       </h1>
