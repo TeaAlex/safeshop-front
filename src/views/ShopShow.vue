@@ -19,6 +19,10 @@
             <HelpMessage type="info">1 seule reservation par jour</HelpMessage>
           </div>
 
+          <div>
+            <HelpMessage type="info" v-if="!isLogged">Connectez-vous afin de pouvoir réserver un créneau</HelpMessage>
+          </div>
+
           <div class="relative mt-4 ">
             <select
               @change="selectedDate = $event.target.value"
@@ -57,8 +61,8 @@
               @click="createBook($event, hour.id)"
               v-for="hour in hours"
               :key="hour.id"
-              class="cursor-pointer px-2 py-1 w-16 bg-gray-200 text-gray-800 rounded text-center my-4 relative"
-              :class="{ 'bg-teal-300 text-teal-800': hour.hasBooked }"
+              class="px-2 py-1 w-16 bg-gray-200 text-gray-800 rounded text-center my-4 relative"
+              :class="{ 'bg-teal-300 text-teal-800': hour.hasBooked, 'cursor-pointer hover:bg-blue-300 hover:text-blue-800': isLogged}"
             >
               <div class="flex h-6 items-center justify-center rounded-full w-6 text-xs absolute counter"
                    :class="{ 'bg-green-200 text-green-800': hour.status === 'good', 'bg-orange-200 text-orange-800': hour.status === 'average', 'bg-red-200 text-red-800': hour.status === 'low' }"
@@ -87,14 +91,19 @@ export default {
     HelpMessage
   },
   mounted() {
-    api.get(`/shop/${this.$route.params.id}/show`)
+    let shopId = this.$route.params.id;
+    api.get(`/shop/${shopId}/show`)
     .then((response) => {
       const {shop, slots, days} = response.data;
       this.shop = shop;
       this.schedules = shop.schedules;
       this.slots = slots;
       this.days = days;
-    })
+    });
+    if (this.isLogged) {
+      api.get(`/booking/user/shop/${shopId}/show`)
+      .then(response => this.bookings = response.data);
+    }
   },
   data() {
     return {
@@ -103,15 +112,24 @@ export default {
       shop: {},
       schedules: [],
       slots: {},
+      bookings: [],
       errorMessage: null
     };
   },
   computed: {
+    isLogged(){
+      return this.$store.state.users.isLogged;
+    },
     hours(){
       if (this.selectedDate === null) {
         return [];
       }
-      return this.slots[this.selectedDate].map(({formattedHour, id, bookings, number_max, day}) => {
+      return this.slots[this.selectedDate].map((slot, index) => {
+        const {formattedHour, id, number_max, day} = slot;
+        let bookings = [];
+        if (Object.keys(this.bookings).length > 0) {
+           bookings = this.bookings[this.selectedDate][index]['bookings'];
+        }
         const max = this.schedules[day - 1].number_max;
         let status = "";
         const low = max / 3;
@@ -135,6 +153,9 @@ export default {
   },
   methods: {
     createBook(event, id) {
+      if (!this.isLogged) {
+        return;
+      }
       api.post(`/booking/${id}/create`)
       .then(() => {
         const target = event.target;
