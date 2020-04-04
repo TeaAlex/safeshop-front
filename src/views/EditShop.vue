@@ -55,23 +55,40 @@
       let response = await api.get('/user/current-user');
       const {user} = response.data;
       this.user = user;
-      if(user.role_id !== 2) {
+      if (user.role_id !== 2) {
         throw new Error("User is not a merchant");
       }
       response = await api.get('/shop/show');
       const {shop} = await response.data;
       this.shop = shop;
       this.setFields();
-      response = await api.get(`/schedule/shop/${shop.id}/show`);
-      const {schedules, interval, number_max} = response.data;
-      this.schedules = schedules;
-      this.fields['number_max']['value'] = number_max;
-      this.fields['interval']['value'] = interval;
+      try {
+        response = await api.get(`/schedule/shop/${shop.id}/show`);
+        const {schedules, interval, number_max} = response.data;
+        this.schedules = schedules;
+        this.fields['number_max']['value'] = number_max;
+        this.fields['interval']['value'] = interval;
+      } catch (e) {
+        const days = Object.keys(this.dayMap);
+        days.forEach(day => {
+          this.schedules.push({
+            shop_id: this.shop.id,
+            open_hour: "09:00",
+            close_hour: "17:00",
+            day: day,
+            isopen: true,
+            number_max: null,
+            interval: null
+          })
+        });
+        this.newSchedule = true;
+      }
       this.initalized = true
     },
     data: function () {
       return {
         initalized: false,
+        newSchedule: false,
         dayMap: {
           1: 'Lundi',
           2: 'Mardi',
@@ -140,7 +157,7 @@
       }
     },
     methods: {
-      setFields(){
+      setFields() {
         Object.entries(this.shop).forEach(([key, value]) => {
           if (this.fields[key]) {
             this.fields[key]['value'] = value
@@ -148,17 +165,23 @@
         })
       },
 
-      async submit(values){
+      async submit(values) {
         const promises = [];
         promises.push(api.put(`/shop/${this.shop.id}/edit`, values));
+
         this.schedules.forEach((schedule) => {
           schedule.number_max = values.number_max;
           schedule.interval = values.interval;
-          promises.push(api.put(`/schedule/${schedule.id}/edit`, schedule));
+          if (this.newSchedule) {
+            promises.push(api.post(`/schedule/${this.shop.id}/create`, schedule))
+          } else {
+            promises.push(api.put(`/schedule/${schedule.id}/edit`, schedule));
+          }
         });
         try {
-           await Promise.all(promises);
-           this.status = 200;
+          await Promise.all(promises);
+          await api.post(`/slot/${this.shop.id}/generate`);
+          this.status = 200;
         } catch (e) {
           this.status = 400;
         }

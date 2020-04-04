@@ -63,7 +63,7 @@ const routes = [{
         component: ListShop
     },
     {
-        path: "/editShop",
+        path: "/commerce/edit",
         name: "EditShop",
         component: Editshop,
         beforeEnter: (to, from, next) => {
