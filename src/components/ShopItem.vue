@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white sm:rounded p-4 w-full sm:p-6 sm:w-128">
+  <div class="bg-white sm:rounded p-4 w-full sm:p-6 sm:w-128 shadow">
     <div class="flex-col">
       <div class="flex items-center">
         <div class="rounded bg-gray-400 h-12 w-12  sm:w-20 sm:h-20">

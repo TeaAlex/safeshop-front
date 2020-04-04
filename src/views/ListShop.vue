@@ -67,11 +67,12 @@ export default {
   },
   computed: {
     filteredList() {
-      return this.shops.filter(shops => {
-        if(shops.address){
-          return shops.label.toLowerCase().includes(this.search.toLowerCase()) || shops.address.toLowerCase().includes(this.search.toLowerCase()) || shops.city.toLowerCase().includes(this.search.toLowerCase());
+      return this.shops.filter(shop => {
+        if(shop.address){
+          console.log(shop.schedules.length > 0);
+          return ((shop.label.toLowerCase().includes(this.search.toLowerCase()) || shop.address.toLowerCase().includes(this.search.toLowerCase()) || shop.city.toLowerCase().includes(this.search.toLowerCase())) && shop.schedules.length > 0);
         } else {
-          return shops.label.toLowerCase().includes(this.search.toLowerCase()) || shops.city.toLowerCase().includes(this.search.toLowerCase());
+          return (shop.label.toLowerCase().includes((this.search.toLowerCase()) || shop.city.toLowerCase().includes(this.search.toLowerCase())) && shop.schedules.length > 0);
         }
 
       });
