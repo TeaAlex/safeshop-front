@@ -3,9 +3,7 @@ import api from './api'
 
 export default {
     getShopData(siret) {
-        // then return the promise of the axios instance
-        return axios.get('https://api.insee.fr/entreprises/sirene/V3/siret/'+siret,{
-            headers:  {Authorization: `Bearer ${process.env.VUE_APP_INSEE_TOKEN}`}}).catch();
+        return api.get('/insee/siret/'+siret, {})
     },
     login({email, password}) {
         // then return the promise of the axios instance
