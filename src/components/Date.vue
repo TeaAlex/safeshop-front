@@ -1,6 +1,4 @@
-<template>
-
-  <div class="flex flex-col w-2/3 items-stretch m-auto my-4">
+ <div class="flex flex-col w-2/3 items-stretch m-auto my-4">
     <div class="flex flex-wrap -mx-3 mb-6  justify-end  sm:justify-end md:justify-between lg:justify-between xl:justify-between ">
       <div class="sm:w-1/4 md:w-1/4  px-2 md:mb-2 -mr-1 items-right  ">
         <label class="font-semibold text-gray-700 block mb-2 sm:text-sm align-middle">{{label}}</label>

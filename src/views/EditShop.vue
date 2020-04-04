@@ -1,74 +1,64 @@
 <template>
   <div>
-    <div class="flex flex-col w-56 m-auto my-4">
-      <h1 class="label-forms mb-5 mt-10 mb:text-4xl ">
+    <div class="mx-auto w-96">
+      <h1 class="label-forms mb-5 mt-10 mb:text-4xl text-center">
         Editer mon enseigne
       </h1>
-    </div>
-    <Formik v-if="initalized" @onSubmit="submit" class="mx-auto w-160">
-      <FormGroup2 v-for="(field) in fields"
-                  :key="field.name"
-                  :type="field.type"
-                  :name="field.name"
-                  :value="field.value"
-                  :label="field.label"
-                  class="w-2/3"
-      >
-      </FormGroup2>
-      <table class="mx-auto w-2/3 text-center text-gray-800">
-        <thead>
+      <Formik v-if="initalized" @onSubmit="submit">
+        <FormGroup2 v-for="(field) in fields"
+                    :key="field.name"
+                    :type="field.type"
+                    :name="field.name"
+                    :value="field.value"
+                    :label="field.label"
+                    class="w-2/3"
+        >
+        </FormGroup2>
+        <table class="mx-auto text-center text-gray-800">
+          <thead>
           <tr>
             <th>Jour</th>
             <th>Ouverture</th>
             <th>Fermeture</th>
           </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(date, index) in dates" :key="index">
-            <td>{{date.label}}</td>
+          </thead>
+          <tbody>
+          <tr v-for="(schedule, index) in schedules" :key="index">
+            <td>{{dayMap[schedule.day]}}</td>
             <td>
-              <Field
-                      :key="date.name1"
-                      :type="date.type"
-                      :name="date.name1"
-                      :value="date.value1"
-                      :label="date.label"
-              ></Field>
+              <input class="border rounded p-2" type="time" v-model="schedule.open_hour">
             </td>
             <td>
-              <Field
-                      :key="date.name2"
-                      :type="date.type"
-                      :name="date.name2"
-                      :value="date.value2"
-                      :label="date.label"
-              ></Field>
+              <input class="border rounded p-2" type="time" v-model="schedule.close_hour">
             </td>
           </tr>
-        </tbody>
-      </table>
-    </Formik>
-    <!-- <input type="time" id="number" v-model="monday.start"> -->
+          </tbody>
+        </table>
+      </Formik>
+      <div class="mt-4" v-if="status !== null">
+        <HelpMessage :type="submitMessage.type">{{submitMessage.text}}</HelpMessage>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
   import Formik from "../components/Formik/Formik";
   import FormGroup2 from "../components/Formik/FormGroup2";
-  import Field from "../components/Formik/Field"
   import api from "../api/api";
+  import HelpMessage from "../components/HelpMessage";
 
   export default {
     name: "Editshop",
-    components: {Formik, FormGroup2, Field},
-    async mounted() {  
+    components: {Formik, FormGroup2, HelpMessage},
+    async mounted() {
       let response = await api.get('/user/current-user');
       const {user} = response.data;
       this.user = user;
       if(user.role_id !== 2) {
         throw new Error("User is not a merchant");
       }
-      response = await api.get('/shop/show')
+      response = await api.get('/shop/show');
       const {shop} = await response.data;
       this.shop = shop;
       this.setFields();
@@ -77,12 +67,21 @@
       this.schedules = schedules;
       this.fields['number_max']['value'] = number_max;
       this.fields['interval']['value'] = interval;
-      this.setDates();
       this.initalized = true
     },
     data: function () {
       return {
         initalized: false,
+        dayMap: {
+          1: 'Lundi',
+          2: 'Mardi',
+          3: 'Mercredi',
+          4: 'Jeudi',
+          5: 'Vendredi',
+          6: 'Samedi',
+          7: 'Dimanche'
+        },
+        status: null,
         fields: {
           label: {
             label: 'Label',
@@ -121,72 +120,23 @@
             value: ''
           }
         },
-        dates: [
-          {
-            label: 'Lundi',
-            name: '1',
-            name1: 'begin_lun',
-            name2: 'end_lun',
-            type: 'time',
-            value1: '',
-            value2: ''
-          },
-          {
-            label: 'Mardi',
-            name: '2',
-            name1: 'begin_mar',
-            name2: 'end_mar',
-            type: 'time',
-            value1: '',
-            value2: ''
-          },
-          {
-            label: 'Mercredi',
-            name: '3',
-            name1: 'begin_mer',
-            name2: 'end_mer',
-            type: 'time',
-            value1: '',
-            value2: ''
-          },
-          {
-            label: 'Jeudi',
-            name: '4',
-            name1: 'begin_jeu',
-            name2: 'end_jeu',
-            type: 'time',
-            value1: '',
-            value2: ''
-          },
-          {
-            label: 'Vendredi',
-            name: '5',
-            name1: 'begin_ven',
-            name2: 'end_ven',
-            type: 'time',
-            value1: '',
-            value2: ''
-          },
-          {
-            label: 'Samedi',
-            name: '6',
-            name1: 'begin_sam',
-            name2: 'end_sam',
-            type: 'time',
-            value1: '',
-            value2: ''
-          },
-          {
-            label: 'Dimanche',
-            name: '7',
-            name1: 'begin_dim',
-            name2: 'end_dim',
-            type: 'time',
-            value1: '',
-            value2: ''
-          },
-        ],
         schedules: [],
+      }
+    },
+    computed: {
+      submitMessage() {
+        if (this.status === 200) {
+          return {
+            type: 'success',
+            text: 'Enregistrement réussi'
+          }
+        } else if (this.status >= 400) {
+          return {
+            type: 'error',
+            text: "Erreur lors de l'enregistrement"
+          }
+        }
+        return {};
       }
     },
     methods: {
@@ -197,18 +147,21 @@
           }
         })
       },
-      setDates(){
-        this.schedules.forEach(s => {
-          this.dates.forEach(d => {
-            if (d.name == s.day) {
-              d.value1 = s.open_hour;
-              d.value2 = s.close_hour;
-            }
-          })
-        })
-      },
-      submit(values){
-        console.log(values)
+
+      async submit(values){
+        const promises = [];
+        this.schedules.forEach((schedule) => {
+          schedule.number_max = values.number_max;
+          schedule.interval = values.interval;
+          promises.push(api.put(`/schedule/${schedule.id}/edit`, schedule));
+        });
+        try {
+           await Promise.all(promises);
+           this.status = 200;
+        } catch (e) {
+          this.status = 400;
+        }
+
       }
     },
   }
