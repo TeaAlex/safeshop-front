@@ -150,6 +150,7 @@
 
       async submit(values){
         const promises = [];
+        promises.push(api.put(`/shop/${this.shop.id}/edit`, values));
         this.schedules.forEach((schedule) => {
           schedule.number_max = values.number_max;
           schedule.interval = values.interval;
