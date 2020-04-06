@@ -111,7 +111,7 @@ export default {
     createShop: function(values) {
       this.$store.dispatch('users/register_shop',{user: values});
       this.$router.push({name: "Login"})
-	  }
+    }
   }
 };
 </script>

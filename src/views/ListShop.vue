@@ -34,11 +34,9 @@
       </div>
     </ul>
     <div class="w-full mx-auto lg:">
-      <div class="mx-auto flex justify-center mb-4" v-for="shop in filteredList" :key="shop.id">
-        <router-link :to="{ name: 'ShopShow', params: { id: shop.id } }">
-          <ShopItem :shop="shop" :schedules="shop.schedules"></ShopItem>
-        </router-link>
-      </div>
+      <router-link class="mx-auto flex justify-center mb-4" :to="{ name: 'ShopShow', params: { id: shop.id } }" v-for="shop in filteredList" :key="shop.id">
+        <ShopItem :shop="shop" :schedules="shop.schedules"></ShopItem>
+      </router-link>
     </div>
   </div>
 </template>
