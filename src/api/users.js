@@ -1,13 +1,10 @@
-import axios from 'axios';
 import api from './api'
 
 export default {
     getShopData(siret) {
-        // then return the promise of the axios instance
-        return axios.get('https://api.insee.fr/entreprises/sirene/V3/siret/'+siret,{
-            headers:  {Authorization: `Bearer ${process.env.VUE_APP_INSEE_TOKEN}`}}).catch();
+        return api.get('/insee/siret/' + siret, {})
     },
-    login({email, password}) {
+    login({ email, password }) {
         // then return the promise of the axios instance
         return api.post('/login', {
             "uid": email,
@@ -22,44 +19,44 @@ export default {
             "password_confirmation": user.confirm_password
         })
     },
-    resetPass({email}) {
+    resetPass({ email }) {
         // then return the promise of the axios instance
         return api.post('/forgot-password', {
             "uid": email
         })
     },
-    register(user){
-        return api.post('/register',{
+    register(user) {
+        return api.post('/register', {
             "firstname": user.prenom,
             "lastname": user.nom,
-            "email":user.email,
+            "email": user.email,
             "password": user.password,
             "password_confirmation": user.resetpassword
         }).catch();
     },
-    register_shop(user){
-        return api.post('/register_shop',{
+    register_shop(user) {
+        return api.post('/register_shop', {
             "firstname": "Societé",
             "lastname": user.shopName,
             "label": user.shopName,
-            "email":user.email,
+            "email": user.email,
             "password": user.password,
             "password_confirmation": user.resetpassword,
-            "address":user.address,
+            "address": user.address,
             "zip_code": user.zipCode,
             "city": user.city,
-            "phone_number":user.number,
+            "phone_number": user.number,
             "siret": user.siret,
         }).catch();
     },
-    editUser(user){
-        return api.put('/user/edit',{
+    editUser(user) {
+        return api.put('/user/edit', {
             "firstname": user.firstname,
             "lastname": user.lastname
         }).catch();
     },
-    validate_mail({token}){
-        return api.post('/validate_mail',{
+    validate_mail({ token }) {
+        return api.post('/validate_mail', {
             "token": token
         });
     },

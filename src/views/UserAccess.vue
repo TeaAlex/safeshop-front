@@ -41,6 +41,10 @@
                 </h1>
                 <a href="/commerce/edit"  class="bg-gray-800 hover:bg-blue-dark text-xl w-1/8 text-white font-bold py-2 px-4 rounded flex-col " type="button">
                     Editer</a>
+                            <router-link :to="{ name: 'QRcode', params: { id: shop.id } }">
+                     <div class="bg-gray-800 hover:bg-blue-dark text-xl w-40 ml-2 text-white text-center font-bold py-2 px-4 rounded flex-col " type="button">
+                    Mon QR Code</div>
+                            </router-link>
             </div>
             <div class="flex w-full rounded	bg-white shadow-md rounded py-3 items-center mb-4">
                 <div class="flex-col w-1/3 px-6 ">

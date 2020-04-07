@@ -109,7 +109,7 @@ const routes = [{
         component: ShopShow
     },
     {
-        path: "/qrcode",
+        path: "/qrcode/:id",
         name: "QRcode",
         component: QRcode
     },
