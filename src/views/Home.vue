@@ -14,7 +14,7 @@
         <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
           <p class="uppercase tracking-loose w-full">QUEL EST NOTRE OBJECTIF ?</p>
           <h1 class="my-4 text-5xl font-bold leading-tight">Faire vos courses en un temps record !</h1>
-          <p class="leading-normal text-2xl mb-8">Grâce à cette plateforme, vous pourrez allez à votre supermarché le
+          <p class="leading-normal text-2xl mb-8">Grâce à cette plateforme, vous pourrez vous rendre à votre supermarché le
             plus proche
             sans faire la queue pendant de longues minutes ⏳ !</p>
 
