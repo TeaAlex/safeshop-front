@@ -5,7 +5,7 @@
         SAFE<span class="text-teal-600 fredoka">SHOP</span>
       </h1>
       <h3 class="block label-forms mb-5">CONNEXION</h3>
-       <div class="flex flex-col w-56 m-auto my-4">
+        <div class="flex flex-col w-56 m-auto my-4">
          <button type="button" class="google-button">
            <a :href="googleUrl">
           <span class="google-button__icon">
@@ -61,8 +61,12 @@ export default {
   methods: {
     login: function(e) {
       this.$store.dispatch('users/login',{user:e,vm: this})
-      this.$router.push({name: "Home"})
-	}
+      .then(()=>{
+        this.$router.push({name: "Home"})
+      }, (error) => {
+        console.log(error)
+      })
+    }
   }
 };
 </script>

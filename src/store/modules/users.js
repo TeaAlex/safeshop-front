@@ -10,6 +10,7 @@ export default {
     emailSended: "",
     validated: "",
     user: {},
+    error: null,
   },
 
   actions: {
@@ -43,13 +44,21 @@ export default {
         commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
       });
     },
-    async login({ commit }, payload ){
-      let response = await usersApi.login(payload.user);
-      const {token} = response.data;
-      commit('isSuccessfullyLogged', {token});
-      response = await usersApi.getUser();
-      const {user} = response.data;
-      commit('setUser', user);
+    login({ commit }, payload ){
+      return new Promise((resolve,reject) => {
+        usersApi.login(payload.user)
+        .then(async response => {
+          const {token} = response.data;
+          await commit('isSuccessfullyLogged', {token});
+          response = await usersApi.getUser();
+          const {user} = response.data;
+          commit('setUser', user);
+          resolve();
+        },(error) => {
+          commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data })
+          reject();
+        });
+      });
     },
     changePassword({ commit }, payload ){
       usersApi.changePassword(payload.user)
@@ -113,22 +122,24 @@ export default {
     },
     hasFailed(state, payload){
       state.isLogged = false;
+      state.error = payload.error.message;
       switch (payload.status) {
         case 401:
-          alert("Erreur 401 : " + payload.error[0].message);
+          alert("Erreur 401 : " + payload.error.message);
           break;
         case 403:
-          alert("Erreur 403 : " + payload.error[0].message);
+          alert("Erreur 403 : " + payload.error.message);
           break;
         case 404:
-          alert("Erreur 404 : " + payload.error[0].message);
+          alert("Erreur 404 : " + payload.error.message);
           break;
         case 400:
-          alert("Erreur 400 : " + payload.error[0].message);
+          alert("Erreur 400 : " + payload.error.message);
           break;
       }
     },
     isSuccessfullyLogged( state,payload ){
+      state.error = null;
       state.token = payload;
       state.isLogged = true;
       localStorage.userToken = state.token.token;
