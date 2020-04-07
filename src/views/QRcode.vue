@@ -42,9 +42,9 @@
         },
         data() {
             return {
-                value: `${process.env.VUE_APP_BASE_URL}/commerce/`,
+                value: `${process.env.FRONT_URL}/commerce/${this.$route.params.id}`,
                 // value: `${process.env.VUE_APP_BASE_URL}/shop/${this.$routes.params.id}`,
-                size: 300,
+                size: 270,
                 shop: {},
                 schedules: [],
                 slots: {},
