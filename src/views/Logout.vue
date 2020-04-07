@@ -8,6 +8,7 @@ export default {
   mounted() {
     localStorage.removeItem("userToken");
     this.$store.commit('users/setIsLogged', false);
+    this.$store.commit('users/setUser', {});
     this.$router.push('/')
   },
 }

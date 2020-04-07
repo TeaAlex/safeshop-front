@@ -131,7 +131,6 @@ export default {
       }, 500);
     },
     setValue(name, coordinates){
-      console.log(coordinates);
       this.search = name;
       this.SET_USER_LOCATION(coordinates);
       this.setShop(coordinates);

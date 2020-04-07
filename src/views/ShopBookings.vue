@@ -48,8 +48,7 @@
   export default {
     name: "ShopBookings",
     mounted() {
-      const id = this.$route.params.id;
-      api.get(`/slot/shop/${id}/show`)
+      api.get(`/slot/shop/show`)
       .then(response => {
         const { groupedSlots, days } = response.data;
         this.groupedSlots = groupedSlots;

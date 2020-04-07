@@ -59,9 +59,10 @@
       return {
         isOpen: false,
         urls: [
-          {name: 'Liste des commerces', link: '/commerce', alwaysShow: true},
+          {name: 'Liste des commerces', link: '/commerce', alwaysShow: true, role: 3},
           {name: 'Mon profil', link: '/profil', requiredLogin: true},
-          {name: 'Mes reservations', link: '/reservations', requiredLogin: true},
+          {name: 'Reservations', link: '/commerce/reservations', requiredLogin: true, role: 2},
+          {name: 'Mes reservations', link: '/reservations', requiredLogin: true, role: 3},
           {name: 'Deconnexion', link: '/deconnexion', requiredLogin: true},
           {name: 'Inscription', link: '/inscription', requiredLogin: false},
           {name: 'Connexion', link: '/connexion', requiredLogin: false},
@@ -74,11 +75,31 @@
       }
     },
     computed: {
+      ...mapState({
+        user: state => state.users.user
+      }),
+      // roleUrls() {
+      //    else {
+      //     return [];
+      //   }
+      // },
       authUrls() {
-        return this.urls.filter(({requiredLogin, alwaysShow}) => requiredLogin || alwaysShow)
+        if (Object.keys(this.user).length > 0) {
+          return this.urls.filter(({requiredLogin, role, alwaysShow}) => {
+            if ((requiredLogin || alwaysShow) && role === undefined) {
+              return true;
+            }
+            if ((requiredLogin || alwaysShow) && role === this.user.role_id) {
+                return true;
+            } else {
+                return false;
+            }
+          })
+        }
+        return [];
       },
       unAuthUrls() {
-        return this.urls.filter(({requiredLogin, alwaysShow}) => !requiredLogin || alwaysShow)
+        return this.urls.filter(({requiredLogin, alwaysShow}) => !requiredLogin || alwaysShow);
       },
       ...mapState({
         isLogged: state => state.users.isLogged

@@ -99,7 +99,7 @@ const routes = [{
         }
     },
     {
-        path: "/commerce/:id/reservations",
+        path: "/commerce/reservations",
         name: "ShopBookings",
         component: ShopBookings
     },

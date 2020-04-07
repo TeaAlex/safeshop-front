@@ -29,7 +29,6 @@ export default new Vuex.Store({
   },
   actions: {
     async setShop({commit}, { lat, lng, query }) {
-      console.log(lat, lng);
       const response = await api.get(`/shop/all?query=${query}&lat=${lat}&lng=${lng}`);
       const {shops} = response.data;
       commit('SET_SHOPS', shops);

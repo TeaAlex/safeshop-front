@@ -1,4 +1,6 @@
 import usersApi from "../../api/users";
+// import api from '../../api/api'
+import axios from 'axios'
 
 export default {
   namespaced: true,
@@ -47,7 +49,13 @@ export default {
       let response = await usersApi.login(payload.user);
       const {token} = response.data;
       commit('isSuccessfullyLogged', {token});
-      response = await usersApi.getUser();
+      localStorage.setItem('userToken', token);
+      const url = process.env.VUE_APP_BASE_URL;
+      response = await axios.get(`${url}/user/current-user`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       const {user} = response.data;
       commit('setUser', user);
     },
@@ -102,13 +110,11 @@ export default {
     },
     setShopData(state, payload) {
       state.shopData = payload.shopData.etablissement;
-      console.log(state.shopData);
     },
     registered(state, payload) {
       state.registed = payload;
     },
     validateMail(state, payload) {
-      console.log("valideEmail",payload);
       state.validated = payload.validated;
     },
     hasFailed(state, payload){
@@ -134,9 +140,7 @@ export default {
       localStorage.userToken = state.token.token;
     },
     mailSended(state,payload ){
-      console.log(payload);
       state.emailSended = payload.emailSended.email
-      console.log(state.emailSended);
     },
     setIsLogged(state, bool) {
       if (bool === false){
@@ -149,9 +153,7 @@ export default {
       console.log(state);
     },
     isEdited( state,payload ){
-      console.log(payload);
       state.editUser = payload.user;
-      console.log(state.editUser);
     },
   }
 };
