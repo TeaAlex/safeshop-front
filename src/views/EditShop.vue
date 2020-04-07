@@ -125,7 +125,7 @@
             value: ''
           },
           interval: {
-            label: 'Combien de temps passent en moyenne vos clients (en minutes)',
+            label: 'Combien de temps vos clients passent ils en moyenne (en minutes)',
             name: 'interval',
             type: 'number',
             value: ''
