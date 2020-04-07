@@ -1,4 +1,5 @@
 import api from './api'
+import axios from "axios";
 
 export default {
     getShopData(siret) {
@@ -34,7 +35,12 @@ export default {
             "password_confirmation": user.resetpassword
         }).catch();
     },
-    register_shop(user) {
+    async register_shop(user) {
+        const fullAddress = `${user.address} ${user.zipCode} ${user.city}`;
+        const response = await axios.get(`https://photon.komoot.de/api/?&q=${fullAddress}`);
+        const {features} = response.data;
+        const [lng, lat] = features[0].geometry.coordinates;
+
         return api.post('/register_shop', {
             "firstname": "Societé",
             "lastname": user.shopName,
@@ -47,6 +53,8 @@ export default {
             "city": user.city,
             "phone_number": user.number,
             "siret": user.siret,
+            "lat": lat,
+            "lng": lng
         }).catch();
     },
     editUser(user) {
