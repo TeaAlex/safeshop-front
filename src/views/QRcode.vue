@@ -26,9 +26,23 @@
 
     export default {
         name: "QRcode",
+        mounted() {
+            api.get(`/shop/${this.$route.params.id}/show`)
+                .then((response) => {
+                    const {
+                        shop,
+                        slots,
+                        days
+                    } = response.data;
+                    this.shop = shop;
+                    this.schedules = shop.schedules;
+                    this.slots = slots;
+                    this.days = days;
+                })
+        },
         data() {
             return {
-                value: `${process.env.VUE_APP_BASE_URL}`,
+                value: `${process.env.VUE_APP_BASE_URL}/commerce/`,
                 // value: `${process.env.VUE_APP_BASE_URL}/shop/${this.$routes.params.id}`,
                 size: 300,
                 shop: {},
@@ -43,21 +57,6 @@
         components: {
             QrcodeVue,
             ShopItem
-        },
-
-        mounted() {
-            api.get(`/shop/${this.$route.params.id}/show`)
-                .then((response) => {
-                    const {
-                        shop,
-                        slots,
-                        days
-                    } = response.data;
-                    this.shop = shop;
-                    this.schedules = shop.schedules;
-                    this.slots = slots;
-                    this.days = days;
-                })
         },
         methods: {
             print() {
