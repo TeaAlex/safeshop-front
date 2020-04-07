@@ -1,6 +1,6 @@
 <template>
   <div class="w-full xl:w-2/3 mx-auto">
-    <h1 class="text-left font-bold text-2xl text-center py-12">Retrouvez vos commerces de proximité</h1>
+    <h1 class="text-left font-bold text-2xl text-center py-12 px-2">Retrouvez vos commerces de proximité</h1>
     <div class="flex items-center justify-center mb-8">
       <input
               v-on:keyup="autoComplete"
@@ -9,8 +9,8 @@
               type="search"
               placeholder="Rechercher votre commerce..."
       />
-      <div @click="geolocate" class="h-8 w-8 text-teal-500 cursor-pointer">
-        <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g data-name="Layer 2"><g data-name="pin"><rect width="24" height="24" opacity="0"/><path d="M12 2a8 8 0 0 0-8 7.92c0 5.48 7.05 11.58 7.35 11.84a1 1 0 0 0 1.3 0C13 21.5 20 15.4 20 9.92A8 8 0 0 0 12 2zm0 17.65c-1.67-1.59-6-6-6-9.73a6 6 0 0 1 12 0c0 3.7-4.33 8.14-6 9.73z"/><path d="M12 6a3.5 3.5 0 1 0 3.5 3.5A3.5 3.5 0 0 0 12 6zm0 5a1.5 1.5 0 1 1 1.5-1.5A1.5 1.5 0 0 1 12 11z"/></g></g></svg>
+      <div @click="geolocate" class="ml-2 h-6 w-6 text-teal-500 cursor-pointer flex items-center">
+        <svg fill="currentColor" viewBox="0 0 24 24" class="w-full h-full"><title>icons_crossplateformes</title><path d="M12 7.64A4.36 4.36 0 1016.36 12 4.36 4.36 0 0012 7.64zm9.75 3.27a9.8 9.8 0 00-8.66-8.66V1.09a1.09 1.09 0 10-2.18 0v1.16a9.8 9.8 0 00-8.66 8.66H1.09a1.09 1.09 0 000 2.18h1.16a9.8 9.8 0 008.66 8.66v1.16a1.09 1.09 0 002.18 0v-1.16a9.8 9.8 0 008.66-8.66h1.16a1.09 1.09 0 000-2.18zM12 19.64A7.64 7.64 0 1119.64 12 7.64 7.64 0 0112 19.64z"></path></svg>
       </div>
     </div>
 
@@ -41,15 +41,15 @@
     </ul>
 
     <p class="text-center text-xl mb-4 font-bold text-gray-800">{{ resultText }} </p>
-    <div class="flex">
-      <div class="ml-auto mr-16">
+    <div class="flex flex-col lg:flex-row justify-center ">
+      <div class="lg:mr-4">
         <router-link class="mx-auto flex justify-center mb-4"
                      :to="{ name: 'ShopShow', params: { id: shop.id } }"
                      v-for="shop in shops" :key="shop.id">
           <ShopItem :shop="shop" :schedules="shop.schedules" :id="`shop-${shop.id}`"></ShopItem>
         </router-link>
       </div>
-      <div class="w-96 h-192" v-if="userLocation !== null">
+      <div class="w-96 h-192 rounded hidden lg:block" v-if="userLocation !== null && shopCount > 0">
         <Map :shops="shops"></Map>
       </div>
     </div>
@@ -83,7 +83,7 @@ export default {
   },
   computed: {
     ...mapState(['shops', 'userLocation']),
-    ...mapGetters(['resultText']),
+    ...mapGetters(['shopCount', 'resultText']),
   },
   methods: {
     ...mapActions(['setShop']),

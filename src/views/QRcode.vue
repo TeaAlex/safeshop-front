@@ -4,7 +4,7 @@
             Générer votre QR Code </h1>
         <div id="printMe" class="w-full xl:w-2/3 mx-auto flex justify-center">
             <qrcode-vue :value="value" :size="size" level="H"></qrcode-vue>
-            <div class="w-full xl:w-2/3 mx-auto ">
+            <div class="w-full xl:w-2/3 mx-auto ml-4">
                 <ShopItem :shop="shop" :schedules="schedules">
                 </ShopItem>
             </div>
