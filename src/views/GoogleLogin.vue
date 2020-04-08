@@ -12,7 +12,7 @@ export default {
   },
   created(){
     localStorage.setItem("userToken", this.$route.params.id);
-    this.$store.commit('users/setIsLogged', true);
+    this.$store.dispatch('users/autoLogin',{vm: this});
     this.$router.push('/')
   }
 };

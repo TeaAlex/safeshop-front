@@ -1,11 +1,11 @@
 <template>
+
   <div>
     <div class="flex flex-col w-2/3 m-auto my-4">
       <div class="flex w-full mx-auto items-center justify-between">
         <h1 class="label-forms mb-5 mt-10 mb:text-4xl text-center ">
           Editer mon profil
         </h1>
-
         <a href="/profil"
            class="bg-gray-800 hover:bg-blue-dark text-xl w-1/8 text-white font-bold py-2 px-4 rounded flex-col"
            type="button">
@@ -23,7 +23,6 @@
                  class="w-2/3"
       >
       </FormGroup>
-
     </Formik>
   </div>
 </template>
@@ -73,7 +72,6 @@
         this.show = true;
       },
       editUser: function (e) {
-        debugger
         this.$store.dispatch('users/editUser', {user: e, vm: this})
         this.$router.push({name: "UserAccess"})
       }

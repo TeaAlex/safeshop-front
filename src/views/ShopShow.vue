@@ -160,7 +160,7 @@ export default {
       if (!this.isLogged) {
         return;
       }
-      api.post(`/booking/${id}/create`, {
+      api.post(`/booking/${id}/create`, {}, {
         headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
       })
       .then(() => {

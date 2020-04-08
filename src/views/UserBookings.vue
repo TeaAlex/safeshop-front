@@ -15,7 +15,7 @@
       <tr v-for="(booking, index) in bookings" :key="index">
         <td class="border px-4 py-2">{{ booking.formattedDay }}</td>
         <td class="border px-4 py-2">{{ booking.formattedHour }}</td>
-        <td class="border px-4 py-2 text-blue-400"><router-link target="_blank" :to="{name: 'ShopShow', params: {id: booking.shopId}}">{{booking.label}}</router-link></td>
+        <td class="border px-4 py-2 text-blue-400"><router-link :to="{name: 'ShopShow', params: {id: booking.shopId}}">{{booking.label}}</router-link></td>
         <td class="border px-4 py-2">{{ booking.address }}</td>
         <td class="border px-4 py-2">{{ booking.city }}</td>
       </tr>
