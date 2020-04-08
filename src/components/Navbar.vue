@@ -78,11 +78,6 @@
       ...mapState({
         user: state => state.users.user
       }),
-      // roleUrls() {
-      //    else {
-      //     return [];
-      //   }
-      // },
       authUrls() {
         if (Object.keys(this.user).length > 0) {
           return this.urls.filter(({requiredLogin, role, alwaysShow}) => {
