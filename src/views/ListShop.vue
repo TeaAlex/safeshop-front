@@ -41,6 +41,9 @@
     </ul>
 
     <p class="text-center text-xl mb-4 font-bold text-gray-800">{{ resultText }} </p>
+    <div class="flex justify-center">
+      <ClipLoader v-if="loading" color="#38b2ac" size="50" class="text-center"></ClipLoader>
+    </div>
     <div class="flex flex-col lg:flex-row justify-center ">
       <div class="lg:mr-4">
         <router-link class="mx-auto flex justify-center mb-4"
@@ -53,10 +56,6 @@
         <Map :shops="shops"></Map>
       </div>
     </div>
-
-
-
-
   </div>
 </template>
 
@@ -66,28 +65,30 @@ import ShopItem from "../components/ShopItem";
 import axios from "axios";
 import Map from "../components/Map"
 import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
+import {ClipLoader} from '@saeris/vue-spinners';
 
 export default {
   name: "ListShop",
   components: {
     ShopItem,
-    Map
+    Map,
+    ClipLoader
   },
   data() {
     return {
       search: "",
       results: [],
       isSearched:false,
-      noResult:false
+      noResult:false,
     };
   },
   computed: {
-    ...mapState(['shops', 'userLocation']),
+    ...mapState(['shops', 'userLocation', 'loading']),
     ...mapGetters(['shopCount', 'resultText']),
   },
   methods: {
     ...mapActions(['setShop']),
-    ...mapMutations(['SET_USER_LOCATION']),
+    ...mapMutations(['SET_USER_LOCATION', 'SET_LOADING']),
     geolocate() {
       const success = (position) => {
         const lat = position.coords.latitude;
@@ -98,6 +99,7 @@ export default {
       function error() {
         console.log("Unable to retrieve your location");
       }
+      this.SET_LOADING(true);
       navigator.geolocation.getCurrentPosition(success, error)
     },
     autoComplete() {
@@ -133,6 +135,7 @@ export default {
     setValue(name, coordinates){
       this.search = name;
       this.SET_USER_LOCATION(coordinates);
+      this.SET_LOADING(true);
       this.setShop(coordinates);
       this.isSearched = false;
     }

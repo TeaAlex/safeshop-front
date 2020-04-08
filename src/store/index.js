@@ -21,7 +21,8 @@ const vuexPersistence = new VuexPersistence({
 export default new Vuex.Store({
   state: {
     shops: [],
-    userLocation: null
+    userLocation: null,
+    loading: false
   },
   mutations: {
     SET_SHOPS(state, shops) {
@@ -29,6 +30,9 @@ export default new Vuex.Store({
     },
     SET_USER_LOCATION(state, coordinates) {
       state.userLocation = coordinates
+    },
+    SET_LOADING(state, bool) {
+      state.loading = bool
     }
   },
   getters: {
@@ -45,6 +49,7 @@ export default new Vuex.Store({
         headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
       });
       const {shops} = response.data;
+      commit('SET_LOADING', false);
       commit('SET_SHOPS', shops);
     },
   },
