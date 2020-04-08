@@ -92,7 +92,9 @@ export default {
   },
   mounted() {
     let shopId = this.$route.params.id;
-    api.get(`/shop/${shopId}/show`)
+    api.get(`/shop/${shopId}/show`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+    })
     .then((response) => {
       const {shop, slots, days} = response.data;
       this.shop = shop;
@@ -101,7 +103,9 @@ export default {
       this.days = days;
     });
     if (this.isLogged) {
-      api.get(`/booking/user/shop/${shopId}/show`)
+      api.get(`/booking/user/shop/${shopId}/show`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+      })
       .then(response => this.bookings = response.data);
     }
   },
@@ -156,7 +160,9 @@ export default {
       if (!this.isLogged) {
         return;
       }
-      api.post(`/booking/${id}/create`)
+      api.post(`/booking/${id}/create`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+      })
       .then(() => {
         const target = event.target;
         target.classList.remove('bg-gray-200', 'text-gray-800');

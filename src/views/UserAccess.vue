@@ -97,13 +97,17 @@
     export default {
         name: "UserAccess",
         mounted() {
-            api.get('/user/current-user')
-                .then(response => {
-                    this.user = response.data.user;
-                    if(response.data.user.role_id == 2){
-                        api.get('/shop/show')
-                            .then(response => this.shop = response.data.shop)
-                    }});
+            api.get('/user/current-user', {
+                headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+            })
+            .then(response => {
+                this.user = response.data.user;
+                if(response.data.user.role_id == 2){
+                    api.get('/shop/show', {
+                        headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+                    })
+                        .then(response => this.shop = response.data.shop)
+                }});
         },
         data(){
             return {

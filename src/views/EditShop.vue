@@ -52,18 +52,24 @@
     name: "Editshop",
     components: {Formik, FormGroup2, HelpMessage},
     async mounted() {
-      let response = await api.get('/user/current-user');
+      let response = await api.get('/user/current-user', {
+        headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+      });
       const {user} = response.data;
       this.user = user;
       if (user.role_id !== 2) {
         throw new Error("User is not a merchant");
       }
-      response = await api.get('/shop/show');
+      response = await api.get('/shop/show', {
+        headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+      });
       const {shop} = await response.data;
       this.shop = shop;
       this.setFields();
       try {
-        response = await api.get(`/schedule/shop/${shop.id}/show`);
+        response = await api.get(`/schedule/shop/${shop.id}/show`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+        });
         const {schedules, interval, number_max} = response.data;
         this.schedules = schedules;
         this.fields['number_max']['value'] = number_max;
@@ -167,20 +173,28 @@
 
       async submit(values) {
         const promises = [];
-        promises.push(api.put(`/shop/${this.shop.id}/edit`, values));
+        promises.push(api.put(`/shop/${this.shop.id}/edit`, values, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+        }));
 
         this.schedules.forEach((schedule) => {
           schedule.number_max = values.number_max;
           schedule.interval = values.interval;
           if (this.newSchedule) {
-            promises.push(api.post(`/schedule/${this.shop.id}/create`, schedule))
+            promises.push(api.post(`/schedule/${this.shop.id}/create`, schedule, {
+              headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+            }))
           } else {
-            promises.push(api.put(`/schedule/${schedule.id}/edit`, schedule));
+            promises.push(api.put(`/schedule/${schedule.id}/edit`, schedule, {
+              headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+            }));
           }
         });
         try {
           await Promise.all(promises);
-          await api.post(`/slot/${this.shop.id}/generate`);
+          await api.post(`/slot/${this.shop.id}/generate`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+          });
           this.status = 200;
         } catch (e) {
           this.status = 400;

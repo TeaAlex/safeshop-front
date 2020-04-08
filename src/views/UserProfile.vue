@@ -36,7 +36,9 @@
         name: "UserProfile",
         components: {Formik, FormGroup},
         beforeMount(){
-            api.get('/user/current-user')
+            api.get('/user/current-user', {
+                headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+            })
                 .then(response => { this.user = response.data.user;
                     this.setFieldsValue(this.user)});
         },

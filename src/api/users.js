@@ -3,7 +3,9 @@ import axios from "axios";
 
 export default {
     getShopData(siret) {
-        return api.get('/insee/siret/' + siret, {})
+        return api.get('/insee/siret/' + siret, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+        })
     },
     login({ email, password }) {
         // then return the promise of the axios instance
@@ -18,6 +20,8 @@ export default {
             "token": localStorage.getItem("changePass"),
             "password": user.new_password,
             "password_confirmation": user.confirm_password
+        }, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
         })
     },
     resetPass({ email }) {
@@ -61,6 +65,8 @@ export default {
         return api.put('/user/edit', {
             "firstname": user.firstname,
             "lastname": user.lastname
+        }, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
         }).catch();
     },
     validate_mail({ token }) {

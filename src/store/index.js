@@ -29,7 +29,9 @@ export default new Vuex.Store({
   },
   actions: {
     async setShop({commit}, { lat, lng, query }) {
-      const response = await api.get(`/shop/all?query=${query}&lat=${lat}&lng=${lng}`);
+      const response = await api.get(`/shop/all?query=${query}&lat=${lat}&lng=${lng}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+      });
       const {shops} = response.data;
       commit('SET_SHOPS', shops);
     },

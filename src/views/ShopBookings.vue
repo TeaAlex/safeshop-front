@@ -48,7 +48,9 @@
   export default {
     name: "ShopBookings",
     mounted() {
-      api.get(`/slot/shop/show`)
+      api.get(`/slot/shop/show`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+      })
       .then(response => {
         const { groupedSlots, days } = response.data;
         this.groupedSlots = groupedSlots;

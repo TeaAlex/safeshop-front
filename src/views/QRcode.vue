@@ -27,7 +27,9 @@
     export default {
         name: "QRcode",
         mounted() {
-            api.get(`/shop/${this.$route.params.id}/show`)
+            api.get(`/shop/${this.$route.params.id}/show`, {
+                headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+            })
                 .then((response) => {
                     const {
                         shop,

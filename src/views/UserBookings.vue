@@ -29,7 +29,9 @@
   export default {
     name: "UserBookings",
     async mounted() {
-      const response = await api.get('/booking/user/show');
+      const response = await api.get('/booking/user/show', {
+        headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+      });
       const {bookings} = response.data;
       this.bookings = bookings
     },
