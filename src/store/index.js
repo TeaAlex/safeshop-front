@@ -6,6 +6,18 @@ import api from '../api/api';
 
 Vue.use(Vuex);
 
+const vuexPersistence = new VuexPersistence({
+  reducer: state => {
+    const {isLogged, user} = state.users;
+    return {
+      users: {
+        isLogged,
+        user
+      }
+    }
+  }
+});
+
 export default new Vuex.Store({
   state: {
     shops: [],
@@ -39,5 +51,5 @@ export default new Vuex.Store({
   modules: {
     users
   },
-  plugins: [new VuexPersistence().plugin]
+  plugins: [vuexPersistence.plugin]
 });
