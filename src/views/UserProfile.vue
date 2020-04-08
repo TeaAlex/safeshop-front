@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <div>
         <div class="flex flex-col w-2/3 m-auto my-4">
             <div class="flex w-full mx-auto items-center justify-between">
                 <h1 class="label-forms mb-5 mt-10 mb:text-4xl text-center ">
@@ -25,7 +25,7 @@
         </Formik>
 
 
-    </v-container>
+    </div>
 </template>
 
 <script>

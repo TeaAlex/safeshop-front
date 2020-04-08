@@ -59,6 +59,17 @@ export default {
       const {user} = response.data;
       commit('setUser', user);
     },
+    async autoLogin({ commit } ){
+      commit('isSuccessfullyLogged', {token: localStorage.getItem("userToken")});
+      const url = process.env.VUE_APP_BASE_URL;
+      const response = await axios.get(`${url}/user/current-user`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`
+        }
+      });
+      const {user} = response.data;
+      commit('setUser', user);
+    },
     changePassword({ commit }, payload ){
       usersApi.changePassword(payload.user)
       .then((response) => {
