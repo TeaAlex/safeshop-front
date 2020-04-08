@@ -102,7 +102,7 @@ export default {
   methods: {
     setFieldsValue() {
       this.fields[1]["value"] = this.shopData.uniteLegale.denominationUniteLegale; // nom du commerce
-      this.fields[2]["value"] = this.shopData.adresseEtablissement.numeroVoieEtablissement + " " + this.shopData.adresseEtablissement.typeVoieEtablissement + " " + this.shopData.adresseEtablissement.libelleVoieEtablissement;
+      this.fields[2]["value"] = this.shopData.adresseEtablissement.typeVoieEtablissement + " " + this.shopData.adresseEtablissement.libelleVoieEtablissement;
       this.fields[3]["value"] = this.shopData.adresseEtablissement.codePostalEtablissement;
       this.fields[4]["value"] = this.shopData.adresseEtablissement.libelleCommuneEtablissement;
       this.fields[6]["value"] = this.shopData.siret;
