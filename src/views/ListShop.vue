@@ -42,7 +42,7 @@
 
     <p class="text-center text-xl mb-4 font-bold text-gray-800">{{ resultText }} </p>
     <div class="flex justify-center">
-      <ClipLoader v-if="loading" color="#38b2ac" size="50" class="text-center"></ClipLoader>
+      <ClipLoader v-if="loading" color="#38b2ac" class="text-center"></ClipLoader>
     </div>
     <div class="flex flex-col lg:flex-row justify-center ">
       <div class="lg:mr-4">
