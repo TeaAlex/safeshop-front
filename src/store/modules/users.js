@@ -159,10 +159,6 @@ export default {
       }
       state.isLogged = bool;
     },
-    passwordChanged(state,payload ){
-      console.log(payload);
-      console.log(state);
-    },
     isEdited( state,payload ){
       state.editUser = payload.user;
     },

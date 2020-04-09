@@ -96,11 +96,8 @@ export default {
         this.SET_USER_LOCATION({lat, lng});
         this.setShop({lat, lng});
       };
-      function error() {
-        console.log("Unable to retrieve your location");
-      }
       this.SET_LOADING(true);
-      navigator.geolocation.getCurrentPosition(success, error)
+      navigator.geolocation.getCurrentPosition(success)
     },
     autoComplete() {
       if (this.timer) {
