@@ -192,7 +192,7 @@
         });
         try {
           await Promise.all(promises);
-          await api.post(`/slot/${this.shop.id}/generate`, {
+          await api.post(`/slot/${this.shop.id}/generate`, {}, {
             headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
           });
           this.status = 200;
