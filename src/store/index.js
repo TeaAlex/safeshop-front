@@ -40,6 +40,7 @@ export default new Vuex.Store({
       return state.shops.length
     },
     resultText(state, {shopCount}){
+      if (state.userLocation === null) return 'Effectuez une recherche';
       return shopCount > 1 ? `${shopCount} Résultats` : `${shopCount} Résultat`;
     },
   },
