@@ -1,24 +1,5 @@
-# vue-adonis-boilerplate
+# safeshop-front
 
-## Project setup
-```
-yarn install
-```
+Plateforme permettant à des commerçants de pouvoir administrer les horaires de sa boutique
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+STACK: VueJS, AdonisJS, Leeflet, Tailwindcss, PostgreSQL
